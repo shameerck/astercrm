@@ -21,17 +21,14 @@ class Shopify extends BaseController
        
             $hmac_header = $request->getHeaderLine('X-Shopify-Hmac-Sha256');
             
-            ob_flush();
+/*
+ * ob_flush();
 ob_start();
-    var_dump($hmac_header);
+var_dump($request);
 file_put_contents("dump.txt", ob_get_flush());
 exit;
-            
-            $hmac_header = $_SERVER['HTTP_X_SHOPIFY_HMAC_SHA256'];
-            log_message('info', $hmac_header);
-            
-            $hmac_header1 =  $request->header('HTTP_X_SHOPIFY_HMAC_SHA256');
-            log_message('info', $hmac_header1);
+ * 
+ */
             
             if($hmac_header!=null)
             {
