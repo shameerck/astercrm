@@ -14,10 +14,8 @@ class Shopify extends BaseController
 
 	public function customercreated()
 	{
-            $request = service('request');
-
             
-            $hmac_header = $request->getGet('HTTP_X_SHOPIFY_HMAC_SHA256');
+            $hmac_header = $_GET['hmac'];;
 
             if($hmac_header!=null)
             {
