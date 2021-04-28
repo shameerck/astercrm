@@ -35,9 +35,11 @@ exit;
 $data = file_get_contents('php://input');
 $verified = $this->verify_webhook($data, $hmac_header);
 
-    log_message('info', 'Hook: Customer Created.');
-    log_message('info', $verified);
-    log_message('info', $data);
+ob_start();
+var_dump($verified);
+file_put_contents("dump.txt", ob_get_flush());
+exit;
+
 
             }
        else
