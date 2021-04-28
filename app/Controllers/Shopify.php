@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Controllers;
+
+class Shopify extends BaseController
+{
+    
+    
+    function verify_webhook($data, $hmac_header)
+{
+  $calculated_hmac = base64_encode(hash_hmac('sha256', $data, getenv('SHOPIFY_APP_SECRET'), true));
+  return hash_equals($hmac_header, $calculated_hmac);
+}
+
+	public function customercreated()
+	{
+            $request = service('request');
+
+            
+            $hmac_header = $request->getGet('HTTP_X_SHOPIFY_HMAC_SHA256');
+$data = file_get_contents('php://input');
+$verified = verify_webhook($data, $hmac_header);
+
+echo "<pre>";
+echo $verified;
+echo $data;
+exit;
+	}
+}
