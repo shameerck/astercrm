@@ -16,7 +16,7 @@ class Shopify extends BaseController
 	{
             $request = \Config\Services::request();
 
-            log_message('info', $request->getHeaderLine('HTTP_X_SHOPIFY_HMAC_SHA256'));
+            log_message('info', $request->getGet('HTTP_X_SHOPIFY_HMAC_SHA256'));
             exit;
             $hmac_header = $_GET['hmac'];;
 
