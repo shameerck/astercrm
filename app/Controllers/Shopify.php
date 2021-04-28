@@ -31,7 +31,7 @@ $verified = $this->verify_webhook($data, $hmac_header);
             }
        else
        {
-           echo "Auth failed.";
+           log_message('Shopify Hook', 'Auth failed.');
        }
 exit;
 	}
