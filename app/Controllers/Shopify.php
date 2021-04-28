@@ -24,14 +24,14 @@ class Shopify extends BaseController
 $data = file_get_contents('php://input');
 $verified = $this->verify_webhook($data, $hmac_header);
 
-    log_message('Shopify Hook', 'Customer Created.');
-    log_message('Shopify Hook', $verified);
-    log_message('Shopify Hook', $data);
+    log_message('info', 'Hook: Customer Created.');
+    log_message('info', $verified);
+    log_message('info', $data);
 
             }
        else
        {
-           log_message('Shopify Hook', 'Auth failed.');
+           log_message('error', 'Auth failed.');
        }
 exit;
 	}
