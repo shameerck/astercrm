@@ -14,7 +14,10 @@ class Shopify extends BaseController
 
 	public function customercreated()
 	{
-            
+            $request = \Config\Services::request();
+
+            log_message('info', $request->getJSON());
+            exit;
             $hmac_header = $_GET['hmac'];;
 
             if($hmac_header!=null)
