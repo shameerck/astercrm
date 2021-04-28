@@ -18,12 +18,20 @@ class Shopify extends BaseController
 
             
             $hmac_header = $request->getGet('HTTP_X_SHOPIFY_HMAC_SHA256');
-$data = file_get_contents('php://input');
-$verified = verify_webhook($data, $hmac_header);
 
-echo "<pre>";
-echo $verified;
-echo $data;
+            if($hmac_header!=null)
+            {
+$data = file_get_contents('php://input');
+$verified = $this->verify_webhook($data, $hmac_header);
+
+    log_message('Shopify Hook', 'Customer Created.');
+    log_message('Shopify Hook', $verified);
+    log_message('Shopify Hook', $data);
+            }
+       else
+       {
+           echo "Auth failed.";
+       }
 exit;
 	}
 }
