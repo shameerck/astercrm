@@ -16,7 +16,7 @@ class Shopify extends BaseController
 	{
             $request = \Config\Services::request();
 
-            log_message('info', $request->getJSON());
+            log_message('info', json_decode($request->getJSON()));
             exit;
             $hmac_header = $_GET['hmac'];;
 
