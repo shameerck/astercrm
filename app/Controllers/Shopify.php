@@ -16,12 +16,14 @@ class Shopify extends BaseController
 	{
             $request = \Config\Services::request();
 
-            
+            //Read JSON Data
             $shopify_json = $request->getJSON();
+       
+            $hmac_header = $request->getHeaderLine('HTTP_X_SHOPIFY_HMAC_SHA256');
             
-ob_flush();
+            ob_flush();
 ob_start();
-var_dump($shopify_json);
+    var_dump($hmac_header);
 file_put_contents("dump.txt", ob_get_flush());
 exit;
             
