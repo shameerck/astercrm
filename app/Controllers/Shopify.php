@@ -19,7 +19,7 @@ class Shopify extends BaseController
             //Read JSON Data
             $shopify_json = $request->getJSON();
        
-            $hmac_header = $request->getHeaderLine('HTTP_X_SHOPIFY_HMAC_SHA256');
+            $hmac_header = $request->getHeaderLine('X-Shopify-Hmac-Sha256');
             
             ob_flush();
 ob_start();
