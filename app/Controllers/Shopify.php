@@ -34,12 +34,19 @@ exit;
             {
 $data = file_get_contents('php://input');
 $verified = $this->verify_webhook($data, $hmac_header);
-
-ob_start();
-var_dump($verified);
-file_put_contents("dump.txt", ob_get_flush());
-exit;
-
+if($verified){
+    $customermodel = new CustomerModel();
+    $data["shopify_customer_id"] = "1111111";
+    $data["customer"] = $shopify_json;
+    if ($customermodel->insert($data) === false) {
+        
+    }
+    else
+    {
+        
+    }
+            
+}
 
             }
        else
