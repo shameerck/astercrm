@@ -42,7 +42,7 @@ if($verified){
 
     $data = [
     'shopify_customer_id'  => $request->getJsonVar('id'),
-    'customer'  => $shopify_json
+    'customer'  => json_encode($shopify_json)
 ];
 
 $db->table('customers')->insert($data);
