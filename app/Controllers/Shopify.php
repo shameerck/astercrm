@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\Model;
+use App\Models\CustomerModel;
 
 class Shopify extends BaseController
 {
