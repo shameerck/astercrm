@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Models\CustomerModel;
 
 class Shopify extends BaseController
 {
+    
     
     
     function verify_webhook($data, $hmac_header)
@@ -36,17 +36,23 @@ exit;
             {
 $data = file_get_contents('php://input');
 $verified = $this->verify_webhook($data, $hmac_header);
+
 if($verified){
-    $customermodel = new CustomerModel();
-    $data["shopify_customer_id"] = "1111111";
-    $data["customer"] = $shopify_json;
-    if ($customermodel->insert($data) === false) {
-        
-    }
-    else
-    {
-        
-    }
+    $db = \Config\Database::connect();
+
+    $data = [
+    'shopify_customer_id'  => $name,
+    'customer'  => $shopify_json
+];
+
+$db->table('customers')->insert($data);
+//    if ($customermodel->insert($data) === false) {
+//        
+//    }
+//    else
+//    {
+//        
+//    }
             
 }
 
