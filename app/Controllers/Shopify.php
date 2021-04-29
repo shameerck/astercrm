@@ -41,7 +41,7 @@ if($verified){
     $db = \Config\Database::connect();
 
     $data = [
-    'shopify_customer_id'  => $name,
+    'shopify_customer_id'  => "1111",
     'customer'  => $shopify_json
 ];
 
