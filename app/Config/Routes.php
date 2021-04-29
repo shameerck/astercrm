@@ -35,6 +35,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 
 $routes->get('shopify/customercreated', 'Shopify::customercreated');
+$routes->get('shopify/ordercreated', 'Shopify::ordercreated');
 
 /*
  * --------------------------------------------------------------------
