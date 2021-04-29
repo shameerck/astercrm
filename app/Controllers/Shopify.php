@@ -42,7 +42,7 @@ if($verified){
 
     $data = [
     'shopify_customer_id'  => "1111",
-    'customer'  => $shopify_json
+    'customer'  => json_decode($shopify_json)
 ];
 
 $db->table('customers')->insert($data);
