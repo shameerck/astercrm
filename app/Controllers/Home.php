@@ -13,4 +13,14 @@ class Home extends BaseController
 	{
 		return view('dashboard');
 	}
+        
+        public function orders()
+	{
+		return view('orders');
+	}
+        
+        public function customers()
+	{
+		return view('customers');
+	}
 }

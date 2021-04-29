@@ -34,6 +34,8 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/dashboard', 'Home::dashboard');
+$routes->get('/orders', 'Home::orders');
+$routes->get('/customers', 'Home::customers');
 
 $routes->get('shopify/customercreated', 'Shopify::customercreated');
 $routes->get('shopify/ordercreated', 'Shopify::ordercreated');
