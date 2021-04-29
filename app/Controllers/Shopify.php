@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\Model;
+
 class Shopify extends BaseController
 {
     

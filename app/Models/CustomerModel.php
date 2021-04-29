@@ -10,9 +10,4 @@ class CustomerModel extends Model
     protected $allowedFields = ['shopify_customer_id', 'customer'];
     
     
-    function activate($orgid) {
-        $db = \Config\Database::connect();
-        $db->simpleQuery('udpate ORGANISATIONS SET STATUS=1 WHERE ID='.$orgid);        
-    }
-    
 }
