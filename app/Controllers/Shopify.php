@@ -19,7 +19,7 @@ class Shopify extends BaseController
             $request = \Config\Services::request();
 
             //Read JSON Data
-            $shopify_json = $request->getJSON();
+            $shopify_json = $request->getJSON(true);
        
             $hmac_header = $request->getHeaderLine('X-Shopify-Hmac-Sha256');
             
@@ -41,7 +41,7 @@ if($verified){
     $db = \Config\Database::connect();
 
     $data = [
-    'shopify_customer_id'  => "1111",
+    'shopify_customer_id'  => $request->getJsonVar('id'),
     'customer'  => json_decode($shopify_json)
 ];
 
