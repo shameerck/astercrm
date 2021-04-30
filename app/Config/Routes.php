@@ -40,6 +40,9 @@ $routes->get('/customers', 'Home::customers');
 $routes->get('shopify/customercreated', 'Shopify::customercreated');
 $routes->get('shopify/ordercreated', 'Shopify::ordercreated');
 
+$routes->post('dtorderslist', 'TableData::dtOrdersList');
+$routes->post('dtcustomerslist', 'TableData::dtCustomersList');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

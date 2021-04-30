@@ -201,7 +201,7 @@
 	<div class="menu">
 		<ul>
 			<li class="logo">
-<a href="https://astercrm.com" target="_blank">
+<a href="https://astercrm.teky.dev" target="_blank">
     <strong style="color:red;">Aster CRM</strong>
 </a>
 			</li>
