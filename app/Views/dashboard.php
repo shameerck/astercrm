@@ -141,7 +141,7 @@
 <script>
         $(document).ready(function() {
             
-        $.ajax({ url: "<?= base_url() ?>/dashboard/summary",
+        $.ajax({ url: "<?= base_url('dashboard/summary') ?>",
                     data: {},
                     dataType: "json",
                     type: "POST",
