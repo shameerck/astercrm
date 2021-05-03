@@ -10,7 +10,7 @@ class TableDataModel extends Model {
     public function dtOrders(){
         $db = \Config\Database::connect();
     $builder = $db->table("orders");
-    $builder->select('id, JSON_UNQUOTE(JSON_EXTRACT(order_json, "$.created_at")) as invoice_date, '
+    $builder->select('id, DATE_FORMAT(JSON_UNQUOTE(JSON_EXTRACT(order_json, "$.created_at")),"%d-%m-%Y %H:%m") as invoice_date, '
             . 'CONCAT(JSON_UNQUOTE(JSON_EXTRACT(order_json, "$.customer[0].first_name")), " ",JSON_UNQUOTE(JSON_EXTRACT(order_json, "$.customer[0].last_name"))) as first_name, '
             . 'JSON_UNQUOTE(JSON_EXTRACT(order_json,"$.total_price")) as amount, '
             . 'JSON_EXTRACT(order_json, "$.line_items[0].quantity") as beneficiaries, '

@@ -103,6 +103,8 @@
 "className": "text-left",
                     "aTargets": [0, 1, 2, 3]
                 },
+                
+                
                 {
                     "targets": 4,
                     "className": "text-right"
