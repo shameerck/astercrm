@@ -13,8 +13,8 @@ class TableData extends BaseController
     $table = new TablesIgniter();
     $table->setTable($tabledatamodel->dtOrders())
             ->setDefaultOrder("id","desc")
-            ->setSearch(["order_id","order"])
-          ->setOutput(["id","order_id", "order"]);
+            ->setSearch(["order_id"])
+          ->setOutput(["invoice_date", "first_name","email", "phone", "amount", "beneficiaries"]);
     return $table->getDatatable();
             
     }
@@ -26,8 +26,8 @@ class TableData extends BaseController
     $table = new TablesIgniter();
     $table->setTable($tabledatamodel->dtCustomers())
             ->setDefaultOrder("id","desc")
-            ->setSearch(["customer_id","customer"])
-          ->setOutput(["id","customer_id", "customer"]);
+            ->setSearch(["customer_id","customer_json"])
+          ->setOutput(["id","customer_id", "customer_json"]);
     return $table->getDatatable();
             
     }
