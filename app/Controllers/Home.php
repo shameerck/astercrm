@@ -17,8 +17,7 @@ class Home extends BaseController
                 $data['email']=$this->session->get("email");
                 $data['location']=$this->session->get("location_id");
                 
-                
-            return view('dashboard',$data);
+                return view('dashboard',$data);
         } else {
             return view('login');
         }
@@ -26,7 +25,17 @@ class Home extends BaseController
         
         public function orders()
 	{
-		return view('orders');
+            
+             if ($this->session->get("logged_in")) {
+            
+                $data['email']=$this->session->get("email");
+                $data['location']=$this->session->get("location_id");
+                
+                return view('orders',$data);
+        } else {
+            return view('login');
+        }
+		
 	}
         
         public function customers()
