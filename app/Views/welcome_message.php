@@ -200,16 +200,18 @@
 
 	<div class="menu">
 		<ul>
-			<li class="logo">
-<a href="https://astercrm.teky.dev" target="_blank">
-    <strong style="color:red;">Aster CRM</strong>
-</a>
+                    <li class="logo"><a href="https://crm.asterdilse.com" target="_blank">
+                            <img height="44" title="Aster Logo"
+                                 alt="Visit crm.asterdilse.com official website!"
+				src="assets/img/crm.png"></a>
 			</li>
+                        
+			
 			<li class="menu-toggle">
 				<button onclick="toggleMenu();">&#9776;</button>
 			</li>
 			<li class="menu-item hidden"><a href="#">Home</a></li>
-<li class="menu-item hidden"><a href="https://codeigniter4.github.io/userguide/" target="_blank">Login</a>
+<li class="menu-item hidden"><a href="login">Login</a>
 			</li>
 			
 		</ul>
