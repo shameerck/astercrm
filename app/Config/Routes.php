@@ -43,6 +43,9 @@ $routes->get('/dashboard', 'Home::dashboard');
 $routes->get('/orders', 'Home::orders');
 $routes->get('/customers', 'Home::customers');
 
+$routes->get('/dashboard/summary', 'Dashboard::summary');
+
+
 $routes->get('shopify/customercreated', 'Shopify::customercreated');
 $routes->get('shopify/ordercreated', 'Shopify::ordercreated');
 

@@ -35,7 +35,7 @@ class Shopify extends BaseController {
 
                 $data = [
                     'customer_id' => $request->getJsonVar('id'),
-                    'customer' => json_encode($shopify_json)
+                    'customer_json' => json_encode($shopify_json)
                 ];
 
                 $db->table('customers')->insert($data);
@@ -72,7 +72,7 @@ class Shopify extends BaseController {
 
                 $data = [
                     'order_id' => $request->getJsonVar('id'),
-                    'order' => json_encode($shopify_json)
+                    'order_json' => json_encode($shopify_json)
                 ];
 
                 $db->table('orders')->insert($data);

@@ -1,13 +1,13 @@
  CREATE TABLE `orders` (   
 `id` MEDIUMINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,   
 `order_id` VARCHAR(200) NOT NULL,   
-`order` JSON DEFAULT NULL,   
+`order_json` JSON DEFAULT NULL,   
 PRIMARY KEY (`id`) ) ENGINE=INNODB;
 
 CREATE TABLE `customers` (   
 `id` MEDIUMINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,   
 `customer_id` VARCHAR(200) NOT NULL,   
-`customer` JSON DEFAULT NULL,  
+`customer_json` JSON DEFAULT NULL,  
  PRIMARY KEY (`id`) ) ENGINE=INNODB
 
 
