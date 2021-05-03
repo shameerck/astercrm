@@ -21,11 +21,9 @@ class Dashboard extends BaseController
                     'orders' => $row->orders
                 ));
             
-            $query = $db->query('SELECT sum(order_json->>"$.line_items[0].quantity") as beneficiaries FROM orders');
-            $row   = $query->getRow();
             
             array_push($data, array(
-                    'beneficiaries' => $row->beneficiaries
+                    'beneficiaries' => 1
                 ));
             
             $query = $db->query('SELECT sum(order_json->>"$.total_price") as total FROM orders');
