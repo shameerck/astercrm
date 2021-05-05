@@ -76,7 +76,7 @@ class Shopify extends BaseController {
                 $db = \Config\Database::connect();
 
                 $data = [
-                    'order_id' => $request->getJsonVar('id'),
+                    'order_id' => $request->getJsonVar('order_number'),
                     'order_json' => json_encode($shopify_json)
                 ];
 
