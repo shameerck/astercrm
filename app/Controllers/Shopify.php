@@ -14,6 +14,9 @@ class Shopify extends BaseController {
 
         //Read JSON Data
         $shopify_json = $request->getJSON();
+        
+        log_message('error', $shopify_json);
+
 
         $hmac_header = $request->getHeaderLine('X-Shopify-Hmac-Sha256');
 
