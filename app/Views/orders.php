@@ -47,6 +47,7 @@
                                 <table id="dtOrdersList"  class="table">
                                     <thead>
                                         <tr>
+                                            <th><div class="th-content ">Order#</div></th>
                                             <th><div class="th-content ">Date</div></th>
                                             <th><div class="th-content">Customer</div></th>
                                             <th><div class="th-content">Email</div></th>
@@ -59,6 +60,7 @@
 
                                     <tfoot>
                                         <tr>
+                                            <th><div class="th-content ">Order#</div></th>
                                             <th><div class="th-content ">Date</div></th>
                                             <th><div class="th-content">Customer</div></th>
                                             <th><div class="th-content">Email</div></th>

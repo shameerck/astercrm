@@ -14,7 +14,7 @@ class TableData extends BaseController
     $table->setTable($tabledatamodel->dtOrders())
             ->setDefaultOrder("id","desc")
             ->setSearch(["order_id"])
-          ->setOutput(["invoice_date", "first_name","email", "phone", "amount", "beneficiaries"]);
+          ->setOutput(["order_id", "invoice_date", "first_name","email", "phone", "amount", "beneficiaries"]);
     return $table->getDatatable();
             
     }
