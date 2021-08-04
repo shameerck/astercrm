@@ -88,6 +88,12 @@ class Dashboard extends BaseController
          {
              $unitWayanad=$unitWayanad+1;
          }
+            
+     
+    }
+ 
+}
+
          
           $data = array();
             
@@ -107,11 +113,6 @@ class Dashboard extends BaseController
             array_push($data, array(
                     'unitWayanad' => $unitWayanad
                 ));
-            
-     
-    }
- 
-}
           echo json_encode($data); 
 	}
         
