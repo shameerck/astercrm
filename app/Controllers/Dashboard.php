@@ -65,32 +65,33 @@ class Dashboard extends BaseController
             $unitNameKottakkal="Aster MIMS - Kottakkal";
             $unitNameWayanad="Aster Hospital - Wayanad";
             
-            foreach ($atts as $key => $jsons) { // This will search in the 2 jsons
-     foreach($jsons as $key => $value) {
+            
+     foreach($atts as $key ) {
+         $value = $key['value'];
          
          if( $this->str_contains($value,$unitNameKochi))
          {
              $unitKochi=$unitKochi+1;
          }
-         elseif( $this->str_contains($value,$unitNameCalicut))
+         else if( $this->str_contains($value,$unitNameCalicut))
          {
              $unitCalicut=$unitCalicut+1;
          }
-         elseif( $this->str_contains($value,$unitNameKannur))
+         else if( $this->str_contains($value,$unitNameKannur))
          {
              $unitKannur=$unitKannur+1;
          }
-         elseif( $this->str_contains($value,$unitNameKottakkal))
+         else if( $this->str_contains($value,$unitNameKottakkal))
          {
              $unitKottakkal=$unitKottakkal+1;
          }
-         elseif( $this->str_contains($value,$unitNameWayanad))
+         else if( $this->str_contains($value,$unitNameWayanad))
          {
              $unitWayanad=$unitWayanad+1;
          }
             
      
-    }
+    
  
 }
 
