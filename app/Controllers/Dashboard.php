@@ -115,5 +115,10 @@ class Dashboard extends BaseController
           echo json_encode($data); 
 	}
         
+        function str_contains(string $haystack, string $needle): bool
+    {
+        return '' === $needle || false !== strpos($haystack, $needle);
+    }
+        
         
 }
