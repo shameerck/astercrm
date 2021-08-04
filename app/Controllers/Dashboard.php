@@ -49,9 +49,9 @@ class Dashboard extends BaseController
                        
             
             $query = $db->query('SELECT JSON_EXTRACT(order_json, "$.note_attributes") as attributes FROM orders;');
-            $row   = $query->getRow();
+            $rows   = $query->getResultArray();
 //            var_dump($row->attributes);
-            $atts = json_decode( $row->attributes, true );
+            
             
             $unitKochi=0;
             $unitCalicut=0;
@@ -65,9 +65,12 @@ class Dashboard extends BaseController
             $unitNameKottakkal="Aster MIMS - Kottakkal";
             $unitNameWayanad="Aster Hospital - Wayanad";
             
-            
+            foreach($rows as $row ) {
+                
+            $atts = json_decode( $row['attributes'], true );
      foreach($atts as $key ) {
          $value = $key['value'];
+         
          
          if( $this->str_contains($value,$unitNameKochi))
          {
@@ -94,6 +97,7 @@ class Dashboard extends BaseController
     
  
 }
+            }
 
          
           $data = array();
