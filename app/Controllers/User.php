@@ -61,7 +61,7 @@ class User extends BaseController
                 }
                 else
             {
-                    $logmodel->addlog($request->getVar('email'),$request->getVar('password'), 'Password wrong!');
+                    //$logmodel->addlog($request->getVar('email'),$request->getVar('password'), 'Password wrong!');
               echo json_encode(" Password does not match!");
             }
                 }
