@@ -62,13 +62,13 @@ class User extends BaseController
                 else
             {
                     //$logmodel->addlog($request->getVar('email'),$request->getVar('password'), 'Password wrong!');
-              echo json_encode(" Password does not match!");
+              echo json_encode("Password does not match!");
             }
                 }
             else
             {
-                $logmodel->addlog($request->getVar('email'),$request->getVar('password'), 'User not found!');
-              echo json_encode(" User not found!");
+                //$logmodel->addlog($request->getVar('email'),$request->getVar('password'), 'User not found!');
+              echo json_encode("User not found!");
             }
             
 
