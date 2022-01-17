@@ -38,7 +38,7 @@ class TableData extends BaseController
         $tabledatamodel = new TableDataModel();
     $table = new TablesIgniter();
     $table->setTable($tabledatamodel->dtUnits())
-            ->setDefaultOrder("unitname","desc")
+            ->setDefaultOrder("id","asc")
             ->setSearch(["unitname"])
           ->setOutput(["id", "unitname", "unitinchargename", "unitinchargeemail", "unitinchargemobile", "unitinchargewhatsapp", "unitmanagername", "unitmanageremail", "unitmanagermobile", "unitmanagerwhatsapp", $tabledatamodel->editUnitButton()]);
     return $table->getDatatable();
