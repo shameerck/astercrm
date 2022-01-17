@@ -24,7 +24,7 @@ class TableDataModel extends Model {
         $db = \Config\Database::connect();
     $builder = $db->table("units");
     $builder->select('*');
-    $builder->orderby('unitname', 'asc');
+    $builder->orderby('id', 'asc');
     return $builder;
     }
     
