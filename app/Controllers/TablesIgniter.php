@@ -191,6 +191,7 @@ class TablesIgniter{
             foreach ($result->getResult('array') as $row){
                 $data[] = $this->getOutputData($row);
             }
+
             $output = array(
                 "draw" => (int)$_POST["draw"] ?? -1,
                 "recordsTotal" => $this->getTotal(),

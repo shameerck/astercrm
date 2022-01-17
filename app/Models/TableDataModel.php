@@ -20,10 +20,81 @@ class TableDataModel extends Model {
     return $builder;
     }
     
-    public function dtCustomers(){
+    public function dtUnits(){
         $db = \Config\Database::connect();
+    $builder = $db->table("units");
+    $builder->select('*');
+    $builder->orderby('unitname', 'asc');
+    return $builder;
+    }
+    
+    public function editUnitButton(){
+    $viewButton = function($row){
+        
+            //return '<a target="_blank" href="print/' . $row['id'] .'" class="bs-tooltip" data-toggle="modal" data-target="#addunitModal" data-placement="top" title="" data-original-title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>';
+        return '<button onclick="editunit(\''.$row['id'].'\',\''.$row['unitname'].'\',\''.$row['unitinchargename'].'\',\''.$row['unitinchargeemail'].'\',\''.$row['unitinchargemobile'].'\',\''.$row['unitinchargewhatsapp'].'\',\''.$row['unitmanagername'].'\',\''.$row['unitmanageremail'].'\',\''.$row['unitmanagermobile'].'\',\''.$row['unitmanagerwhatsapp'].'\')" class="btn-sm btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button onclick="deleteunit(\''.$row['id'].'\')" class="btn-sm btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>';
+        
+    };
+    return $viewButton;
+    }
+    
+     
+    public function jsonextract(){
+    $viewButton = function($row){
+        
+        $json = json_decode($row['message'],true);
+        
+        if($json) { return $json["to"]; } 
+        //return $row["fullname"];
+        
+        
+    };
+    return $viewButton;
+    }
+    
+    public function dtVisits(){
+    $db = \Config\Database::connect();
+    $builder = $db->table("visits");
+    $builder->select('visits.id as visitid, concat("Expected: ", visits.expecteddate,"<br>Scheduled: ", IFNULL(visits.visitingdate,""),"<br>Visited: ", IFNULL(visits.visiteddate,"")) as dates, visits.visittitle, visits.comments, visits.username, beneficiaries.hospital, concat("<strong>",beneficiaries.firstname," ",beneficiaries.lastname,"</strong>", "<br>", replace(address, ",", "<br>")) as fullname');
+    $builder->join('beneficiaries','beneficiaries.id=visits.beneficiaryid');
+    $builder->orderby('expecteddate', 'desc');
+    return $builder;
+    }
+    public function editVisit(){
+    $viewButton = function($row){
+        
+            //return '<a target="_blank" href="print/' . $row['id'] .'" class="bs-tooltip" data-toggle="modal" data-target="#addunitModal" data-placement="top" title="" data-original-title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>';
+        return '<button onclick="editschedule(\''.$row['visitid'].'\')" class="btn-sm btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></button><button onclick="editstatus(\''.$row['visitid'].'\')" class="btn-sm btn-info"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>';
+        
+    };
+    return $viewButton;
+    }
+    
+    public function dtNotifications(){
+    $db = \Config\Database::connect();
+    $builder = $db->table("notifications");
+    $builder->select('notifications.created_at, concat(beneficiaries.firstname," ",beneficiaries.lastname,"<br>",beneficiaries.hospital) as fullname, messagetype, message, response');
+    $builder->join('beneficiaries','beneficiaries.id=notifications.beneficiaryid','left');
+    $builder->orderby('created_at', 'desc');
+    return $builder;
+    }
+    
+    public function dtBeneficiaries(){
+    $db = \Config\Database::connect();
+    $builder = $db->table("beneficiaries");
+    $builder->select('concat(beneficiaries.firstname," ",beneficiaries.lastname) as fullname, age, gender, replace(address, ",", "<br>") as address, phone, hospital');
+    $builder->orderby('fullname', 'asc');
+    return $builder;
+    }
+    
+    
+    public function dtCustomers(){
+    $db = \Config\Database::connect();
     $builder = $db->table("customers");
-    $builder->orderby('id', 'desc');
+    $builder->select('CONCAT(JSON_UNQUOTE(JSON_EXTRACT(customer_json, "$.first_name"))," ",JSON_UNQUOTE(JSON_EXTRACT(customer_json, "$.last_name"))) as fullname '
+            . ', JSON_UNQUOTE(JSON_EXTRACT(customer_json, "$.email")) as email'
+            . ', JSON_UNQUOTE(JSON_EXTRACT(customer_json, "$.default_address.phone")) as phone');
+    $builder->orderby('email', 'asc');
     return $builder;
     }
     

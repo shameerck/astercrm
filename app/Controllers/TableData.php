@@ -19,15 +19,65 @@ class TableData extends BaseController
             
     }
     
+    public function dtNotificationsList() {
+            
+           
+        $tabledatamodel = new TableDataModel();
+    $table = new TablesIgniter();
+    $table->setTable($tabledatamodel->dtNotifications())
+            ->setDefaultOrder("created_at","desc")
+            ->setSearch(["id"])
+          ->setOutput(["created_at","fullname","messagetype", $tabledatamodel->jsonextract(), "response"]);
+    return $table->getDatatable();
+            
+    }
+    
+    public function dtUnitsList() {
+            
+          
+        $tabledatamodel = new TableDataModel();
+    $table = new TablesIgniter();
+    $table->setTable($tabledatamodel->dtUnits())
+            ->setDefaultOrder("unitname","desc")
+            ->setSearch(["unitname"])
+          ->setOutput(["id", "unitname", "unitinchargename", "unitinchargeemail", "unitinchargemobile", "unitinchargewhatsapp", "unitmanagername", "unitmanageremail", "unitmanagermobile", "unitmanagerwhatsapp", $tabledatamodel->editUnitButton()]);
+    return $table->getDatatable();
+            
+    }
+    
+    public function dtVisitsList() {
+            
+          
+        $tabledatamodel = new TableDataModel();
+    $table = new TablesIgniter();
+    $table->setTable($tabledatamodel->dtVisits())
+            ->setDefaultOrder("expecteddate","desc")
+          ->setOutput(["fullname", "hospital", "visittitle", "dates","comments", "username", $tabledatamodel->editVisit()]);
+    return $table->getDatatable();
+            
+    }
+    
+     public function dtBeneficiariesList() {
+            
+           
+        $tabledatamodel = new TableDataModel();
+    $table = new TablesIgniter();
+    $table->setTable($tabledatamodel->dtBeneficiaries())
+            ->setDefaultOrder("fullname","asc")
+            ->setSearch(["fullname","address"])
+          ->setOutput(["fullname","age", "gender", "phone", "address", "hospital"]);
+    return $table->getDatatable();
+            
+    }
+    
     public function dtCustomersList() {
             
            
         $tabledatamodel = new TableDataModel();
     $table = new TablesIgniter();
     $table->setTable($tabledatamodel->dtCustomers())
-            ->setDefaultOrder("id","desc")
-            ->setSearch(["customer_id","customer_json"])
-          ->setOutput(["id","customer_id", "customer_json"]);
+            ->setDefaultOrder("email","asc")
+          ->setOutput(["fullname", "email", "phone"]);
     return $table->getDatatable();
             
     }

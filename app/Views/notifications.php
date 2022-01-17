@@ -15,7 +15,7 @@
 
             <div class="page-header">
                 <div class="page-title">
-                    <h3>Customers</h3>
+                    <h3>Notifications</h3>
                 </div>
 
                 <div class="toggle-switch">
@@ -32,26 +32,33 @@
 
             <div class="row layout-top-spacing">
 
+
+
+
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                     <div class="widget widget-table-two">
 
-
                         <div class="widget-content">
                             <div class="table-responsive">
-                                <table id="dtCustomersList"  class="table" style="width:100%">
+                                <table id="dtNotificationsList"  class="table" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th><div class="th-content ">Full Name</div></th>
-                                            <th><div class="th-content ">Email</div></th>
-                                            <th><div class="th-content ">Phone</div></th>
+                                            <th><div class="th-content ">Date</div></th>
+                                            <th><div class="th-content">Beneficiary</div></th>
+                                            <th><div class="th-content">Type</div></th>
+                                            <th><div class="th-content">To</div></th>
+                                            <th><div class="th-content">Response</div></th>
+
                                         </tr>
                                     </thead>
 
                                     <tfoot>
                                         <tr>
-                                            <th><div class="th-content ">Full Name</div></th>
-                                            <th><div class="th-content ">Email</div></th>
-                                            <th><div class="th-content ">Phone</div></th>
+                                            <th><div class="th-content ">Date</div></th>
+                                            <th><div class="th-content">Beneficiary</div></th>
+                                            <th><div class="th-content">Type</div></th>
+                                            <th><div class="th-content">To</div></th>
+                                            <th><div class="th-content">Response</div></th>
                                         </tr>
                                     </tfoot>
 
@@ -84,11 +91,11 @@
 <script src="plugins/table/datatable/datatables.js"></script>
 <script>
     $(document).ready(function () {
-        $('#dtCustomersList').DataTable({
+        $('#dtNotificationsList').DataTable({
             "aoColumnDefs": [{
                     "bSortable": false,
 "className": "text-left",
-                    "aTargets": [0, 1, 2]
+                    "aTargets": [0, 1, 2, 3, 4]
                 }
             ],
             "searching": false,
@@ -103,7 +110,7 @@
             "order": [],
             "serverSide": true,
             "ajax": {
-                url: "<?= base_url('dtcustomerslist') ?>",
+                url: "<?= base_url('dtnotificationslist') ?>",
                 type: 'POST'
             }
         });

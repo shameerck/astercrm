@@ -15,7 +15,7 @@
 
             <div class="page-header">
                 <div class="page-title">
-                    <h3>Recent Orders</h3>
+                    <h3>Orders</h3>
                 </div>
 
                 <div class="toggle-switch">
@@ -37,14 +37,9 @@
 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                     <div class="widget widget-table-two">
-
-                        <div class="widget-heading">
-                            <h5 class="">Recent Orders</h5>
-                        </div>
-
                         <div class="widget-content">
                             <div class="table-responsive">
-                                <table id="dtOrdersList"  class="table">
+                                <table id="dtOrdersList"  class="table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th><div class="th-content ">Order#</div></th>
@@ -84,7 +79,7 @@
 
             <div class="footer-wrapper">
                 <div class="footer-section f-section-1">
-                    <p class="">Copyright © 2021 <a target="_blank" href="https://asterdmhealthcare.com">Aster Digital</a>, All rights reserved.</p>
+                    <p class="">Copyright © <?= Date('Y') ?> <a target="_blank" href="https://www.xlab.ae">XLab</a>, All rights reserved.</p>
                 </div>
 
             </div>

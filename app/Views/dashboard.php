@@ -243,7 +243,7 @@
 
                 <div class="footer-wrapper">
                     <div class="footer-section f-section-1">
-                        <p class="">Copyright © 2021 <a target="_blank" href="https://crm.asterdilse.com">Aster DM Healthcare</a>, All rights reserved.</p>
+                        <p class="">Copyright © <?= Date('Y') ?> <a target="_blank" href="https://www.xlab.ae">XLab</a>, All rights reserved.</p>
                     </div>
                     
                 </div>
@@ -256,6 +256,8 @@
 
 <script>
         $(document).ready(function() {
+            
+            
             
         $.ajax({ url: "<?= base_url('dashboard/summary') ?>",
                     data: {},

@@ -41,7 +41,32 @@ $routes->get('/logout', 'User::logout');
 
 $routes->get('/dashboard', 'Home::dashboard');
 $routes->get('/orders', 'Home::orders');
+$routes->post('dtorderslist', 'TableData::dtOrdersList');
+
 $routes->get('/customers', 'Home::customers');
+$routes->post('dtcustomerslist', 'TableData::dtCustomersList');
+
+$routes->get('/beneficiaries', 'Home::beneficiaries');
+$routes->post('dtbeneficiarieslist', 'TableData::dtBeneficiariesList');
+
+$routes->get('/notifications', 'Home::notifications');
+$routes->post('dtnotificationslist', 'TableData::dtNotificationsList');
+
+
+$routes->get('/settings', 'Home::settings');
+$routes->post('/addunit', 'Settings::addunit');
+$routes->post('/deleteunit', 'Settings::deleteunit');
+$routes->post('/saveescalation', 'Settings::saveescalation');
+$routes->post('/dtunitslist', 'TableData::dtUnitsList');
+
+$routes->get('/visits', 'Home::visits');
+$routes->get('/schedule/(:alphanum)', 'Home::schedule/$1');
+$routes->post('/schedulevisit', 'Schedule::savevisit');
+$routes->get('/visitstatus/(:alphanum)', 'Home::visitstatus/$1');
+$routes->post('/savestatus', 'Schedule::savestatus');
+
+$routes->post('/dtvisitslist', 'TableData::dtVisitsList');
+
 
 $routes->get('dashboard/summary', 'Dashboard::summary');
 $routes->get('dashboard/unitsummary', 'Dashboard::unitsummary');
@@ -50,8 +75,8 @@ $routes->get('dashboard/unitsummary', 'Dashboard::unitsummary');
 $routes->get('shopify/customercreated', 'Shopify::customercreated');
 $routes->get('shopify/ordercreated', 'Shopify::ordercreated');
 
-$routes->post('dtorderslist', 'TableData::dtOrdersList');
-$routes->post('dtcustomerslist', 'TableData::dtCustomersList');
+
+
 
 /*
  * --------------------------------------------------------------------

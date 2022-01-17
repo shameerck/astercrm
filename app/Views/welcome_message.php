@@ -248,7 +248,7 @@
 	
 	<div class="copyrights">
 
-		<p>&copy; <?= date('Y') ?> Aster CRM.</p>
+		<p class="">Copyright © <?= Date('Y') ?> <a target="_blank" href="https://www.xlab.ae">XLab</a>, All rights reserved.</p>
 
 	</div>
 
