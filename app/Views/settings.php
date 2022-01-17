@@ -362,7 +362,7 @@
                                 "paging": false,
                                 "bInfo": false,
 
-                                "order": [0],
+                                "order": [[ 0, "asc" ]],
                                 "serverSide": true,
                                 "ajax": {
                                     url: "dtunitslist",
