@@ -114,7 +114,7 @@
                                     <input type="text" class="form-control" id="escMobile" placeholder="971551234567" value="<?= $pmmobile ?>">
                                 </div>
                                 <div class="invalid-feedback" id="escMobile-invalid">
-                                    Escalation Email not valid
+                                    Escalation SMS number not valid
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -123,7 +123,7 @@
                                     <input type="text" class="form-control" id="escWhatsapp" placeholder="971551234567" value="<?= $pmwhatsapp ?>">
                                 </div>
                                 <div class="invalid-feedback" id="escWhatsapp-invalid">
-                                    Escalation Email not valid
+                                    Escalation WhatsApp number not valid
                                 </div>
                             </div>
 

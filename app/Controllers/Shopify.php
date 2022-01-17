@@ -101,33 +101,33 @@ class Shopify extends BaseController {
                 for ($i = 1; $i <= $ben_count; $i++) {
                     foreach ($atts as $attvalue) {
 
-                        if (str_ends_with($attvalue->name, '-' . $i . '-hospital')) {
+                        if ($this->endsWith($attvalue->name, '-' . $i . '-hospital')) {
                             $benarray[$i]['hospital'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-firstname')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-firstname')) {
                             $benarray[$i]['firstname'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-lastname')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-lastname')) {
                             $benarray[$i]['lastname'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-gender')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-gender')) {
                             $benarray[$i]['gender'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-age')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-age')) {
                             $benarray[$i]['age'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-email')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-email')) {
                             $benarray[$i]['email'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-phone')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-phone')) {
                             $benarray[$i]['phone'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-address')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-address')) {
                             $benarray[$i]['address'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-district')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-district')) {
                             $benarray[$i]['district'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-pin')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-pin')) {
                             $benarray[$i]['pin'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-landmark')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-landmark')) {
                             $benarray[$i]['landmark'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-emergency')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-emergency')) {
                             $benarray[$i]['emergency'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-hospital')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-hospital')) {
                             $benarray[$i]['hospital'] = $attvalue->value;
-                        } else if (str_ends_with($attvalue->name, '-' . $i . '-medicalhistory')) {
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-medicalhistory')) {
                             $benarray[$i]['medicalhistory'] = $attvalue->value;
                         }
                     }
@@ -409,6 +409,18 @@ return 1;
         ),
         $text );
     return strip_tags( $text );
+}
+
+function startsWith( $haystack, $needle ) {
+     $length = strlen( $needle );
+     return substr( $haystack, 0, $length ) === $needle;
+}
+function endsWith( $haystack, $needle ) {
+    $length = strlen( $needle );
+    if( !$length ) {
+        return true;
+    }
+    return substr( $haystack, -$length ) === $needle;
 }
 
         }
