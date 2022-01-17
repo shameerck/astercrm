@@ -255,7 +255,7 @@ class Shopify extends BaseController {
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'localhost/shoot/public/api/v1/gmail/sendemail',
+                    CURLOPT_URL => getenv('api.url').'/api/v1/gmail/sendemail',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -302,7 +302,7 @@ $notificationModel->insert($data);
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'localhost/shoot/public/api/v1/sms/sendsms',
+                    CURLOPT_URL => getenv('api.url').'/api/v1/sms/sendsms',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -343,7 +343,7 @@ return 1;
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'localhost/shoot/public/api/v1/whatsapp/sendwhatsapp',
+                    CURLOPT_URL => getenv('api.url').'/api/v1/whatsapp/sendwhatsapp',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
