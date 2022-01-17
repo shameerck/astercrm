@@ -288,63 +288,13 @@
                         $(document).ready(function () {
 
 
-                            var tempemail1 = new Quill('#template-email-1', {
-                                modules: {
-                                    toolbar: [
-                                        [{header: [1, 2, false]}],
-                                        ['bold', 'italic', 'underline'],
-                                        ['image', 'code-block']
-                                    ]
-                                },
-                                placeholder: 'Compose an epic...',
-                                theme: 'snow'  // or 'bubble'
-                            });
-
-                            var tempemail2 = new Quill('#template-email-2', {
-                                modules: {
-                                    toolbar: [
-                                        [{header: [1, 2, false]}],
-                                        ['bold', 'italic', 'underline'],
-                                        ['image', 'code-block']
-                                    ]
-                                },
-                                placeholder: 'Compose an epic...',
-                                theme: 'snow'  // or 'bubble'
-                            });
-
-
-                            var tempemail3 = new Quill('#template-email-3', {
-                                modules: {
-                                    toolbar: [
-                                        [{header: [1, 2, false]}],
-                                        ['bold', 'italic', 'underline'],
-                                        ['image', 'code-block']
-                                    ]
-                                },
-                                placeholder: 'Compose an epic...',
-                                theme: 'snow'  // or 'bubble'
-                            });
-
-
-
-                            var tempemail4 = new Quill('#template-email-4', {
-                                modules: {
-                                    toolbar: [
-                                        [{header: [1, 2, false]}],
-                                        ['bold', 'italic', 'underline'],
-                                        ['image', 'code-block']
-                                    ]
-                                },
-                                placeholder: 'Compose an epic...',
-                                theme: 'snow'  // or 'bubble'
-                            });
 
 
 
 
                             $('#dtUnitsList').DataTable({
                                 "aoColumnDefs": [{
-                                        "bSortable": false,
+                                        
                                         "className": "text-left",
                                         "aTargets": [0, 1, 2, 3, 6, 7, 8, 9, 10]
                                     },
