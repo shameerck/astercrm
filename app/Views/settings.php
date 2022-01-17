@@ -232,7 +232,7 @@
                             </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="exampleFormControlInput3">Dilse Coordinator WhatsApp Number</label>
+                        <label for="exampleFormControlInput3">Coordinator WhatsApp Number</label>
                         <input type="text" class="form-control" id="unitinchargewhatsapp" name="unitinchargewhatsapp" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitinchargewhatsapp-invalid">
                                 Coordinator WhatsApp Number not valid
@@ -240,28 +240,28 @@
                     </div>
 
                     <div class="form-group mb-4">
-                        <label for="exampleFormControlInput3">Unit Manager Name</label>
+                        <label for="exampleFormControlInput3">Manager Name</label>
                         <input type="text" class="form-control" id="unitmanagername" name="unitmanagername" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitmanagername-invalid">
                                 Manager Name not valid
                             </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="exampleFormControlInput3">Unit Manager Email</label>
+                        <label for="exampleFormControlInput3">Manager Email</label>
                         <input type="email" class="form-control" id="unitmanageremail" name="unitmanageremail" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitmanageremail-invalid">
                                 Manager Email not valid
                             </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="exampleFormControlInput3">Unit Manager Mobile Phone Number</label>
+                        <label for="exampleFormControlInput3">Manager Mobile Phone Number</label>
                         <input type="text" class="form-control" id="unitmanagermobile" name="unitmanagermobile" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitmanagermobile-invalid">
                                 Manager Mobile Phone Number not valid
                             </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="exampleFormControlInput3">Unit Manager WhatsApp Number</label>
+                        <label for="exampleFormControlInput3">Manager WhatsApp Number</label>
                         <input type="text" class="form-control" id="unitmanagerwhatsapp" name="unitmanagerwhatsapp" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitmanagerwhatsapp-invalid">
                                 Manager WhatsApp Number not valid
