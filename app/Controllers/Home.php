@@ -81,10 +81,18 @@ class Home extends BaseController
 $query = $db->query('SELECT * FROM settings');
                     $setting = $query->getRow();
                     
+                    if($setting)
+                    {
                     $data['pmemail']=$setting->pmemail;
                     $data['pmmobile']=$setting->pmmobile;
                     $data['pmwhatsapp']=$setting->pmwhatsapp;
-                
+                    }
+                    else
+                    {
+                        $data['pmemail']="";
+                    $data['pmmobile']="";
+                    $data['pmwhatsapp']="";
+                    }
                 return view('settings',$data);
         } else {
             return redirect()->to(base_url('login'));
