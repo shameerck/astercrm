@@ -211,31 +211,31 @@
                             </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="exampleFormControlInput3">Unit In Charge Name</label>
+                        <label for="exampleFormControlInput3">Coordinator Name</label>
                         <input type="text" class="form-control" id="unitinchargename" name="unitinchargename" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitinchargename-invalid">
-                                Unit In Charge Name not valid
+                                Coordinator Name not valid
                             </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="exampleFormControlInput3">Unit In Charge Email</label>
+                        <label for="exampleFormControlInput3">Coordinator Email</label>
                         <input type="email" class="form-control" id="unitinchargeemail" name="unitinchargeemail" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitinchargeemail-invalid">
-                                Unit In Charge Email not valid
+                                Coordinator Email not valid
                             </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="exampleFormControlInput3">Unit In Charge Mobile Phone Number</label>
+                        <label for="exampleFormControlInput3">Coordinator Mobile Phone Number</label>
                         <input type="text" class="form-control" id="unitinchargemobile" name="unitinchargemobile" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitinchargemobile-invalid">
-                                Unit In Charge Mobile Phone Number not valid
+                                Coordinator Mobile Phone Number not valid
                             </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="exampleFormControlInput3">Unit In Charge WhatsApp Number</label>
+                        <label for="exampleFormControlInput3">Dilse Coordinator WhatsApp Number</label>
                         <input type="text" class="form-control" id="unitinchargewhatsapp" name="unitinchargewhatsapp" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitinchargewhatsapp-invalid">
-                                Unit In Charge WhatsApp Number not valid
+                                Coordinator WhatsApp Number not valid
                             </div>
                     </div>
 
@@ -243,28 +243,28 @@
                         <label for="exampleFormControlInput3">Unit Manager Name</label>
                         <input type="text" class="form-control" id="unitmanagername" name="unitmanagername" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitmanagername-invalid">
-                                Unit Manager Name not valid
+                                Manager Name not valid
                             </div>
                     </div>
                     <div class="form-group mb-4">
                         <label for="exampleFormControlInput3">Unit Manager Email</label>
                         <input type="email" class="form-control" id="unitmanageremail" name="unitmanageremail" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitmanageremail-invalid">
-                                Unit Manager Email not valid
+                                Manager Email not valid
                             </div>
                     </div>
                     <div class="form-group mb-4">
                         <label for="exampleFormControlInput3">Unit Manager Mobile Phone Number</label>
                         <input type="text" class="form-control" id="unitmanagermobile" name="unitmanagermobile" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitmanagermobile-invalid">
-                                Unit Manager Mobile Phone Number not valid
+                                Manager Mobile Phone Number not valid
                             </div>
                     </div>
                     <div class="form-group mb-4">
                         <label for="exampleFormControlInput3">Unit Manager WhatsApp Number</label>
                         <input type="text" class="form-control" id="unitmanagerwhatsapp" name="unitmanagerwhatsapp" placeholder="" value="" required>
                             <div class="invalid-feedback" id="unitmanagerwhatsapp-invalid">
-                                Unit Manager WhatsApp Number not valid
+                                Manager WhatsApp Number not valid
                             </div>
                     </div>
 
