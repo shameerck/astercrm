@@ -77,15 +77,15 @@ var switchFunctionality = {
 
                 if(getHref.includes("assets"))
                 {
-                newHref = '/assets/'+ getHref.split('/assets/').pop()
+                newHref = 'assets/'+ getHref.split('/assets/').pop()
             }
              else if(getHref.includes("bootstrap"))
                 {
-                newHref = '/bootstrap/'+ getHref.split('/bootstrap/').pop()
+                newHref = 'bootstrap/'+ getHref.split('/bootstrap/').pop()
             }
             else if(getHref.includes("plugins"))
                 {
-                newHref = '/plugins/'+ getHref.split('/plugins/').pop()
+                newHref = 'plugins/'+ getHref.split('/plugins/').pop()
             }
             
                     if(n) {
