@@ -75,11 +75,31 @@ var switchFunctionality = {
                 if( getHref == "assets/css/loader.css" ) {
                 } else {
 
+                if(getHref.includes("assets"))
+                {
+                newHref = '/assets/'+ getHref.split('/assets/').pop()
+            }
+             else if(getHref.includes("bootstrap"))
+                {
+                newHref = '/bootstrap/'+ getHref.split('/bootstrap/').pop()
+            }
+            else if(getHref.includes("plugins"))
+                {
+                newHref = '/plugins/'+ getHref.split('/plugins/').pop()
+            }
+            
                     if(n) {
                         linkElement[i].setAttribute('href', getHref);
                     } else {
-                        linkElement[i].setAttribute('href', 'dark/' + getHref);
+                        if(newHref!==null)
+            {
+                        linkElement[i].setAttribute('href', 'dark/' + newHref);
                     }
+                    else
+                    {
+                        linkElement[i].setAttribute('href', 'dark/' + getHref)
+                    }
+                }
                 }
             }
 

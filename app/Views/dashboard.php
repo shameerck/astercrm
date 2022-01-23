@@ -274,7 +274,7 @@ $("#varIncome").text(data[2]['income']);
                 });
                 
                 
-                 $.ajax({ url: "<?= base_url('dashboard/unitsummary') ?>",
+                 $.ajax({ url: "<?= base_url('dashboard/unitwisesummary') ?>",
                     data: {},
                     dataType: "json",
                     type: "POST",

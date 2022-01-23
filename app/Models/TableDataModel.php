@@ -28,11 +28,31 @@ class TableDataModel extends Model {
     return $builder;
     }
     
+    public function dtUsers(){
+        $db = \Config\Database::connect();
+    $builder = $db->table("users");
+    $builder->select('users.id, units.unitname, users.email, users.password, users.location_id ');
+    $builder->join('units','units.id=users.location_id');
+        
+    $builder->orderby('users.id', 'asc');
+    return $builder;
+    }
+    
     public function editUnitButton(){
     $viewButton = function($row){
         
             //return '<a target="_blank" href="print/' . $row['id'] .'" class="bs-tooltip" data-toggle="modal" data-target="#addunitModal" data-placement="top" title="" data-original-title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>';
         return '<button onclick="editunit(\''.$row['id'].'\',\''.$row['unitname'].'\',\''.$row['unitinchargename'].'\',\''.$row['unitinchargeemail'].'\',\''.$row['unitinchargemobile'].'\',\''.$row['unitinchargewhatsapp'].'\',\''.$row['unitmanagername'].'\',\''.$row['unitmanageremail'].'\',\''.$row['unitmanagermobile'].'\',\''.$row['unitmanagerwhatsapp'].'\')" class="btn-sm btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button onclick="deleteunit(\''.$row['id'].'\')" class="btn-sm btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>';
+        
+    };
+    return $viewButton;
+    }
+    
+    public function editUserButton(){
+    $viewButton = function($row){
+        
+            //return '<a target="_blank" href="print/' . $row['id'] .'" class="bs-tooltip" data-toggle="modal" data-target="#addunitModal" data-placement="top" title="" data-original-title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>';
+        return '<button onclick="edituser(\''.$row['id'].'\',\''.$row['location_id'].'\',\''.$row['email'].'\',\''.$row['password'].'\')" class="btn-sm btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button onclick="deleteuser(\''.$row['id'].'\')" class="btn-sm btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>';
         
     };
     return $viewButton;
@@ -57,6 +77,10 @@ class TableDataModel extends Model {
     $builder = $db->table("visits");
     $builder->select('visits.id as visitid, concat("Expected: ", visits.expecteddate,"<br>Scheduled: ", IFNULL(visits.visitingdate,""),"<br>Visited: ", IFNULL(visits.visiteddate,"")) as dates, visits.visittitle, visits.comments, visits.username, beneficiaries.hospital, concat("<strong>",beneficiaries.firstname," ",beneficiaries.lastname,"</strong>", "<br>", replace(address, ",", "<br>")) as fullname');
     $builder->join('beneficiaries','beneficiaries.id=visits.beneficiaryid');
+    if($_SESSION["locationid"]!=null)
+    {
+        $builder->where('beneficiaries.hospital', $_SESSION["locationname"]);
+    }
     $builder->orderby('expecteddate', 'desc');
     return $builder;
     }
@@ -83,6 +107,10 @@ class TableDataModel extends Model {
     $db = \Config\Database::connect();
     $builder = $db->table("beneficiaries");
     $builder->select('concat(beneficiaries.firstname," ",beneficiaries.lastname) as fullname, age, gender, replace(address, ",", "<br>") as address, phone, hospital');
+    if($_SESSION["locationid"]!=null)
+    {
+        $builder->where('beneficiaries.hospital', $_SESSION["locationname"]);
+    }
     $builder->orderby('fullname', 'asc');
     return $builder;
     }

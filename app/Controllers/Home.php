@@ -4,6 +4,16 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
+    
+    public function __construct(){
+        date_default_timezone_set('Asia/Dubai');
+        $session = session();
+        
+        if($session->get("logged_in")==true && $session->get("location_id")!=null) {
+            header("Location:".base_url("/login"));exit;
+        }
+        
+    }
 	public function index()
 	{
 		return view('welcome_message');
@@ -12,135 +22,63 @@ class Home extends BaseController
         public function dashboard()
 	{
             
-            if ($this->session->get("logged_in")) {
-            
-                $data['email']=$this->session->get("email");
-                $data['location']=$this->session->get("location_id");
-                
-                return view('dashboard',$data);
-        } else {
-            return redirect()->to(base_url('login'));
-        }
+                if($this->session->get("role")=="Admin")
+                {
+                return view('dashboard');
+                }
+                else
+                {
+                    return view('dashboardunit');
+                }
+       
 	}
         
         public function orders()
 	{
-            
-             if ($this->session->get("logged_in")) {
-            
-                $data['email']=$this->session->get("email");
-                $data['location']=$this->session->get("location_id");
-                
-                return view('orders',$data);
-        } else {
-            return redirect()->to(base_url('login'));
-        }
+                return view('orders');
+        
 		
 	}
         
         public function notifications()
 	{
             
-             if ($this->session->get("logged_in")) {
-            
-                $data['email']=$this->session->get("email");
-                $data['location']=$this->session->get("location_id");
-                
-                return view('notifications',$data);
-        } else {
-            return redirect()->to(base_url('login'));
-        }
+            return view('notifications');
+       
 		
 	}
         
         public function visits()
 	{
             
-             if ($this->session->get("logged_in")) {
-            
-                $data['email']=$this->session->get("email");
-                $data['location']=$this->session->get("location_id");
-                
-                return view('visits',$data);
-        } else {
-            return redirect()->to(base_url('login'));
-        }
+                return view('visits');
+        
 		
 	}
         
-        public function settings()
-	{
-            
-             if ($this->session->get("logged_in")) {
-            
-                $data['email']=$this->session->get("email");
-                $data['location']=$this->session->get("location_id");
-                
-                 $db = \Config\Database::connect();
-        
-$query = $db->query('SELECT * FROM settings');
-                    $setting = $query->getRow();
-                    
-                    if($setting)
-                    {
-                    $data['pmemail']=$setting->pmemail;
-                    $data['pmmobile']=$setting->pmmobile;
-                    $data['pmwhatsapp']=$setting->pmwhatsapp;
-                    }
-                    else
-                    {
-                        $data['pmemail']="";
-                    $data['pmmobile']="";
-                    $data['pmwhatsapp']="";
-                    }
-                return view('settings',$data);
-        } else {
-            return redirect()->to(base_url('login'));
-        }
-		
-	}
+       
         
         public function customers()
 	{
-		 if ($this->session->get("logged_in")) {
-            
-                $data['email']=$this->session->get("email");
-                $data['location']=$this->session->get("location_id");
-                
-                return view('customers',$data);
-        } else {
-            return redirect()->to(base_url('login'));
-        }
+		 
+                return view('customers');
+      
 		
 	}
         
         public function beneficiaries()
 	{
-             if ($this->session->get("logged_in")) {
-            
-                $data['email']=$this->session->get("email");
-                $data['location']=$this->session->get("location_id");
-                
-                return view('beneficiaries',$data);
-        } else {
-            return redirect()->to(base_url('login'));
-        }
-		
+                return view('beneficiaries');
+        	
              
 	}
         
-         public function login()
-	{
-             
-            
-        return view('login');
-	}
+         
         
         
          public function schedule($visitid)
 	{
              
-             if ($this->session->get("logged_in")) {
                  
                  $db = \Config\Database::connect();
         
@@ -170,15 +108,11 @@ $query = $db->query('SELECT beneficiaries.*, visits.id as visitid, visits.visitt
                     {
                         echo "Record not found!";
                     }
-        } else {
-            return redirect()->to(base_url('login'));
-        }
+       
 	}
         
         public function visitstatus($visitid)
 	{
-             
-             if ($this->session->get("logged_in")) {
                  
                  $db = \Config\Database::connect();
         
@@ -208,9 +142,7 @@ $query = $db->query('SELECT beneficiaries.*, visits.id as visitid, visits.visitt
                     {
                         echo "Record not found!";
                     }
-        } else {
-            return redirect()->to(base_url('login'));
-        }
+       
 	}
         
         

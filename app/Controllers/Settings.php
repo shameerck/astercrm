@@ -4,14 +4,113 @@ namespace App\Controllers;
 
 class Settings extends BaseController
 {
+    
+    public function __construct(){
+        date_default_timezone_set('Asia/Dubai');
+        $session = session();
+        
+        if($session->get("logged_in")==true && $session->get("location_id")!=null) {
+            header("Location:".base_url("/login"));exit;
+        }
+        
+    }
+    
+    
+    
+     public function settings()
+	{
+            
+            
+               
+                
+                 $db = \Config\Database::connect();
+        
+$query = $db->query('SELECT * FROM settings');
+                    $setting = $query->getRow();
+                    
+                    if($setting)
+                    {
+                    $data['pmemail']=$setting->pmemail;
+                    $data['pmmobile']=$setting->pmmobile;
+                    $data['pmwhatsapp']=$setting->pmwhatsapp;
+                    }
+                    else
+                    {
+                        $data['pmemail']="";
+                    $data['pmmobile']="";
+                    $data['pmwhatsapp']="";
+                    }
+                return view('settings',$data);
+        
+		
+	}
+        
+         public function units()
+	{
+           
+                
+                return view('settings_units');
+        
+		
+	}
+        
+        public function reminder()
+	{
+            
+                         
+                $db = \Config\Database::connect();
+        
+$query = $db->query('SELECT * FROM settings');
+                    $setting = $query->getRow();
+                    
+                    if($setting)
+                    {
+                    $data['pmemail']=$setting->pmemail;
+                    $data['pmmobile']=$setting->pmmobile;
+                    $data['pmwhatsapp']=$setting->pmwhatsapp;
+                    }
+                    else
+                    {
+                        $data['pmemail']="";
+                    $data['pmmobile']="";
+                    $data['pmwhatsapp']="";
+                    }
+                
+                return view('settings_reminder',$data);
+        
+		
+	}
+        
+         public function users()
+	{
+            
+                
+                $db = \Config\Database::connect();
+                $query = $db->query("SELECT id, unitname from units");
+        $unitslist = $query->getResultArray();
+        $units="";
+        if($unitslist) {
+            $units = '<option value="">Select unit</option>';
+            foreach($unitslist as $stat)
+            {
+             $units = $units.'<option value="'.$stat['id'].'">'.$stat['unitname'].'</option>';
+            }
+        }
+        
+        $data['units'] = $units;
+                
+                return view('settings_users',$data);
+       
+		
+	}
 	
         public function addunit()
 	{
             
-        $session = session();
+        
         helper('form');
         $request = \Config\Services::request();
-        if ($session->get("logged_in")) {
+        
             
            if (! $this->validate([
             'unitname'  => [
@@ -112,11 +211,7 @@ class Settings extends BaseController
  }
         }
             
-        }
-        else
-        {
-            return redirect()->to(base_url('/login'));
-        }
+        
 	}
         
          function insert_unit($data) {
@@ -130,7 +225,7 @@ class Settings extends BaseController
             
             $rslt = [
                 'success' => true,
-                'redirecturl' => base_url("settings"),
+                'redirecturl' => base_url("/settings/units"),
                 'message' => "Unit registered successfully."
                     ];
 
@@ -156,7 +251,7 @@ class Settings extends BaseController
             
             $rslt = [
                 'success' => true,
-                'redirecturl' => base_url("settings"),
+                'redirecturl' => base_url("/settings/units"),
                 'message' => "Unit updated successfully."
                     ];
 
@@ -172,8 +267,8 @@ class Settings extends BaseController
     function deleteunit() {
         
         
-$session = session();
-if ($session->get("logged_in")) {
+
+
     $db = \Config\Database::connect();
         $request = \Config\Services::request();
     
@@ -187,7 +282,7 @@ if ($session->get("logged_in")) {
             
             $rslt = [
                 'success' => true,
-                'redirecturl' => base_url("settings"),
+                'redirecturl' => base_url("/settings/units"),
                 'message' => "Unit deleted successfully."
                     ];
 
@@ -198,18 +293,154 @@ if ($session->get("logged_in")) {
                 return $this->response->setJSON(array("success" => false, "message" => "Unit deletion failed.", "data" => $e));
             }
             }
-}
-else{
-    return redirect()->to(base_url('/login'));
-}
+
     }
     
+    
+    
+    
+    public function adduser()
+	{
+            
+        
+        helper('form');
+        $request = \Config\Services::request();
+        
+            
+           if (! $this->validate([
+            'unitid'  => [
+            'label'  => 'Unit',
+            'rules'  => 'required',
+            'errors' => [
+                'required' => '{field} is required'
+            ],
+                ],
+            'username'  => [
+            'label'  => 'Username',
+            'rules'  => 'required|min_length[5]|max_length[255]',
+            'errors' => [
+                'required' => '{field} is required',
+                'min_length' => '{field} is too short.',
+            ],
+                ],
+            'userpassword'  => [
+            'label'  => 'Password',
+            'rules'  => 'required|min_length[5]|max_length[255]',
+             'errors' => [
+                'required' => '{field} is required',
+                 'min_length' => '{field} is too short.',
+            ],
+                ]
+            
+        ])){
+            $errors = str_replace(array("\r\n", "\r", "\n", "\t"), ' ', $this->validator->listErrors());
+            $data = [
+                'success' => false,
+                'message' => $errors
+                    ];
+
+                return $this->response->setJSON($data);
+        }
+        else
+        {
+            
+            //$data['id']= uniqid();
+            $data['location_id']= $request->getVar('unitid');
+            $data['email']= $request->getVar('username');
+            $data['password']= $request->getVar('userpassword');
+            if($request->getVar('userid'))
+            {
+           return $this->update_user($request->getVar('userid'), $data);
+            }
+ else {
+     return $this->insert_user($data);
+ }
+        }
+        
+	}
+        
+         function insert_user($data) {
+        $db = \Config\Database::connect();
+        
+
+            $builder = $db->table('users');
+            try
+            {
+            $builder->insert($data);
+            
+            $rslt = [
+                'success' => true,
+                'redirecturl' => base_url("/settings/users"),
+                'message' => "User created successfully."
+                    ];
+
+                return $this->response->setJSON($rslt);
+            }
+            catch (\Exception $e) {
+            {
+                return $this->response->setJSON(array("success" => false, "message" => "User creation failed.", "data" => $e));
+            }
+            }
+        
+    }
+    function update_user($userid, $data) {
+        $db = \Config\Database::connect();
+        
+
+            $builder = $db->table('users');
+            try
+            {
+                $builder->where('id', $userid);
+        
+            $builder->update($data);
+            
+            $rslt = [
+                'success' => true,
+                'redirecturl' => base_url("/settings/users"),
+                'message' => "Unit updated successfully."
+                    ];
+
+                return $this->response->setJSON($rslt);
+            }
+            catch (\Exception $e) {
+            {
+                return $this->response->setJSON(array("success" => false, "message" => "User updating failed.", "data" => $e));
+            }
+            }
+        
+    }
+    function deleteuser() {
+        
+        
+    $db = \Config\Database::connect();
+        $request = \Config\Services::request();
+    
+        $unitid=$request->getVar('userid');
+            $builder = $db->table('users');
+            try
+            {
+                $builder->where('id', $unitid);
+        
+            $builder->delete();
+            
+            $rslt = [
+                'success' => true,
+                'redirecturl' => base_url("/settings/users"),
+                'message' => "User deleted successfully."
+                    ];
+
+                return $this->response->setJSON($rslt);
+            }
+            catch (\Exception $e) {
+            {
+                return $this->response->setJSON(array("success" => false, "message" => "User deletion failed.", "data" => $e));
+            }
+            }
+    }
         
     
     function saveescalation() {
         
-$session = session();
-if ($session->get("logged_in")) {
     
     
     if (! $this->validate([
@@ -275,6 +506,6 @@ if ($session->get("logged_in")) {
             }
 
         
-    }}
+    }
         
 }

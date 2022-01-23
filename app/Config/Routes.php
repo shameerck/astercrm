@@ -32,9 +32,9 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Welcome::index');
 
-$routes->get('/login', 'Home::login');
+$routes->get('/login', 'Welcome::login');
 $routes->post('/login_validate', 'User::login_validate');
 $routes->get('/logout', 'User::logout');
 
@@ -54,10 +54,19 @@ $routes->post('dtnotificationslist', 'TableData::dtNotificationsList');
 
 
 $routes->get('/settings', 'Home::settings');
-$routes->post('/addunit', 'Settings::addunit');
-$routes->post('/deleteunit', 'Settings::deleteunit');
-$routes->post('/saveescalation', 'Settings::saveescalation');
-$routes->post('/dtunitslist', 'TableData::dtUnitsList');
+
+$routes->get('/settings/units', 'Settings::units');
+$routes->post('/settings/addunit', 'Settings::addunit');
+$routes->post('/settings/deleteunit', 'Settings::deleteunit');
+$routes->post('/settings/dtunitslist', 'TableData::dtUnitsList');
+
+$routes->get('/settings/users', 'Settings::users');
+$routes->post('/settings/adduser', 'Settings::adduser');
+$routes->post('/settings/deleteuser', 'Settings::deleteuser');
+$routes->post('/settings/dtuserslist', 'TableData::dtUsersList');
+
+$routes->get('/settings/reminder', 'Settings::reminder');
+$routes->post('/settings/saveescalation', 'Settings::saveescalation');
 
 $routes->get('/visits', 'Home::visits');
 $routes->get('/schedule/(:alphanum)', 'Home::schedule/$1');
@@ -69,7 +78,9 @@ $routes->post('/dtvisitslist', 'TableData::dtVisitsList');
 
 
 $routes->get('dashboard/summary', 'Dashboard::summary');
+$routes->get('dashboard/unitwisesummary', 'Dashboard::unitwisesummary');
 $routes->get('dashboard/unitsummary', 'Dashboard::unitsummary');
+$routes->post('dashboard/upcomingvisits', 'Dashboard::upcomingvisits');
 
 
 $routes->get('shopify/customercreated', 'Shopify::customercreated');

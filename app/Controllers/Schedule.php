@@ -4,14 +4,23 @@ namespace App\Controllers;
 
 class Schedule extends BaseController
 {
+    
+    public function __construct(){
+        date_default_timezone_set('Asia/Dubai');
+        $session = session();
+        
+        if($session->get("logged_in")==true && $session->get("location_id")!=null) {
+            header("Location:".base_url("/login"));exit;
+        }
+        
+    }
 	
         public function savevisit()
 	{
             
-        $session = session();
         helper('form');
         $request = \Config\Services::request();
-        if ($session->get("logged_in")) {
+        
             
            if (! $this->validate([
             'visitid'  => [
@@ -48,12 +57,7 @@ class Schedule extends BaseController
             }
  
         }
-            
-        }
-        else
-        {
-            return redirect()->to(base_url('/login'));
-        }
+        
 	}
         
     function update_schedule($visitid, $data) {
@@ -85,10 +89,10 @@ class Schedule extends BaseController
     public function savestatus()
 	{
             
-        $session = session();
+     
         helper('form');
         $request = \Config\Services::request();
-        if ($session->get("logged_in")) {
+       
             
            if (! $this->validate([
             'visitid'  => [
@@ -137,11 +141,7 @@ class Schedule extends BaseController
  
         }
             
-        }
-        else
-        {
-            return redirect()->to(base_url('/login'));
-        }
+        
 	}
         
     function update_status($visitid, $data) {

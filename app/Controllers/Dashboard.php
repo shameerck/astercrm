@@ -39,7 +39,7 @@ class Dashboard extends BaseController
             echo json_encode($data); 
 	}
         
-        public function unitsummary()
+        public function unitwisesummary()
 	{
             
             
@@ -125,6 +125,79 @@ class Dashboard extends BaseController
     {
         return '' === $needle || false !== strpos($haystack, $needle);
     }
+    
+    public function unitsummary()
+	{
+            
+            
+            $db = \Config\Database::connect();
+$data = array();
+            
+            $query = $db->query("SELECT count(*) as beneficiaries FROM beneficiaries where hospital like '". $_SESSION['locationname'] ."';");
+            $row   = $query->getRow();
+            
+            array_push($data, array(
+                    'beneficiaries' => $row->beneficiaries
+                ));
+            
+            
+            $query = $db->query('SELECT count(*) as visits FROM visits where status=0');
+            $row   = $query->getRow();
+
+            
+            array_push($data, array(
+                    'visits' => $row->visits
+                ));
+            //$query = $db->query('SELECT sum(order_json->>"$.total_price") as total FROM orders');
+            $query = $db->query('SELECT count(*) as visited FROM visits where status=1');
+            $row   = $query->getRow();
+            
+            array_push($data, array(
+                    'visited' => $row->visited
+                ));
+            
+            echo json_encode($data); 
+	}
+        
+        public function upcomingvisits()
+	{
+            
+            $db = \Config\Database::connect();
+            $data = array();
+            
+            $request = \Config\Services::request();
+            $days=$request->getVar('days');
+            $query = $db->query("SELECT * from visits join beneficiaries on beneficiaries.id=visits.beneficiaryid and beneficiaries.hospital like '". $_SESSION['locationname'] ."' where (visits.visitingdate is null and visits.expecteddate<='".Date('Y-m-d', strtotime('+'.$days.' days'))."') or (visits.visitingdate<='".Date('Y-m-d', strtotime('+8 days'))."') ;");
+            $visits   = $query->getResultArray();
+
+            $strvisits="";
+            if($visits)
+            {
+                foreach($visits as $visit)
+                {
+                    
+                    $strvisits=$strvisits.'<div class="transactions-list t-info">
+                                    <div class="t-item">
+                                        <div class="t-company-name">
+                                            <div class="t-name">
+                                                <h4>'.$visit['firstname'].' '.$visit['lastname'].'</h4>
+                                                <p class="meta-date">'.$visit['expecteddate'].'</p>
+                                            </div>
+                                        </div>
+                                        <div class="t-rate rate-inc">
+                                            <p><span>'.($visit['visitingdate']?"Scheduled":"Expected").'</span></p>
+                                        </div>
+                                    </div>
+                                </div>';
+                }
+            }
+            array_push($data, array(
+                    'visitdata' => $strvisits
+                ));
+            
+            
+            echo json_encode($data); 
+	}
         
         
 }

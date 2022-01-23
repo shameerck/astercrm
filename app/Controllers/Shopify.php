@@ -146,7 +146,7 @@ class Shopify extends BaseController {
                     $dataVisit1 = [
                         'id' => $visitid,
                         'orderid' => $request->getJsonVar('order_number'),
-                        'visittitle' => "Visit 1",
+                        'visittitle' => "1st Visit",
                         'expecteddate' => Date('Y-m-d H:i:s'),
                         'beneficiaryid' => $ben['id'],
                         'status' => 0
@@ -157,7 +157,7 @@ class Shopify extends BaseController {
                     $dataVisit2 = [
                         'id' => uniqid(),
                         'orderid' => $request->getJsonVar('order_number'),
-                        'visittitle' => "Visit 2",
+                        'visittitle' => "2nd Visit",
                         'expecteddate' => Date('Y-m-d H:i:s', strtotime('+3 months')),
                         'beneficiaryid' => $ben['id'],
                         'status' => 0
@@ -168,7 +168,7 @@ class Shopify extends BaseController {
                     $dataVisit3 = [
                         'id' => uniqid(),
                         'orderid' => $request->getJsonVar('order_number'),
-                        'visittitle' => "Visit 3",
+                        'visittitle' => "3rd Visit",
                         'expecteddate' => Date('Y-m-d H:i:s', strtotime('+6 months')),
                         'beneficiaryid' => $ben['id'],
                         'status' => 0
@@ -179,7 +179,7 @@ class Shopify extends BaseController {
                     $dataVisit4 = [
                         'id' => uniqid(),
                         'orderid' => $request->getJsonVar('order_number'),
-                        'visittitle' => "Visit 4",
+                        'visittitle' => "4th Visit",
                         'expecteddate' => Date('Y-m-d H:i:s', strtotime('+9 months')),
                         'beneficiaryid' => $ben['id'],
                         'status' => 0

@@ -45,6 +45,18 @@ class TableData extends BaseController
             
     }
     
+    public function dtUsersList() {
+            
+          
+        $tabledatamodel = new TableDataModel();
+    $table = new TablesIgniter();
+    $table->setTable($tabledatamodel->dtUsers())
+            ->setDefaultOrder("id","asc")
+          ->setOutput(["id", "unitname","email", "password", $tabledatamodel->editUserButton()]);
+    return $table->getDatatable();
+            
+    }
+    
     public function dtVisitsList() {
             
           
