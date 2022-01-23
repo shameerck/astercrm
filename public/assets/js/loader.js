@@ -93,11 +93,11 @@ var switchFunctionality = {
                     } else {
                         if(newHref!==null)
             {
-                        linkElement[i].setAttribute('href', 'dark/' + newHref);
+                        linkElement[i].setAttribute('href', '/dark/' + newHref);
                     }
                     else
                     {
-                        linkElement[i].setAttribute('href', 'dark/' + getHref)
+                        linkElement[i].setAttribute('href', '/dark/' + getHref)
                     }
                 }
                 }
