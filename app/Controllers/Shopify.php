@@ -199,8 +199,8 @@ class Shopify extends BaseController {
 
 //Send Email
 
-                $settingsquery = $db->query('SELECT * FROM setting ');
-                    $settings = $query->getRow();
+                $settingsquery = $db->query('SELECT * FROM settings ');
+                    $settings = $settingsquery->getRow();
                 
 
                 foreach ($mailarray as $benmail) {
