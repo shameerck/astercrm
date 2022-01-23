@@ -33,7 +33,47 @@
             <div class="row layout-top-spacing">
 
 
-                
+                <div id="flHorizontalForm" class="col-lg-12 layout-spacing">
+                    <div class="statbox widget box box-shadow">
+                        <div class="widget-header">                                
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h4>Notifications</h4>
+                                </div>                                                                        
+                            </div>
+                        </div>
+                        <div class="widget-content widget-content-area">
+                            <div class="row">
+                            <div class="form-group">&nbsp;&nbsp;
+    <label class="new-control new-checkbox checkbox-primary">
+      <input type="checkbox" id="chkEmail" name="chkEmail" class="new-control-input" <?= $chkEmail ?> >
+      <span class="new-control-indicator"></span>Send Email
+    </label>
+</div>
+                             <div class="form-group">&nbsp;&nbsp;
+    <label class="new-control new-checkbox checkbox-primary">
+      <input type="checkbox" id="chkSMS" name="chkSMS" class="new-control-input" <?= $chkSMS ?> >
+      <span class="new-control-indicator"></span>Send SMS
+    </label>
+</div>
+                             <div class="form-group">&nbsp;&nbsp;
+    <label class="new-control new-checkbox checkbox-primary">
+      <input type="checkbox" id="chkWhatsapp" name="chkWhatsapp" class="new-control-input" <?= $chkWhatsapp ?> >
+      <span class="new-control-indicator"></span>Send WhatsApp
+    </label>
+</div>
+                                </div>
+
+                            <div id="alerts-notifications"></div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button id="btnEnableNotifications" name="btnEnableNotifications" onclick="enablenotifications();" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                 <div id="flHorizontalForm" class="col-lg-12 layout-spacing">
@@ -171,6 +211,52 @@
                                     } else
                                     {
                                         $('#alerts-escalation').html("<div class='alert alert-light-success border-0 mb-4' style='text-align:left;'><strong>" + JSON.stringify(msg.message).replace(/"/g, '') + "</strong></div>");
+                                    }
+
+                                }
+                            });
+                        }
+                        
+                        function enablenotifications()
+                        {
+                            
+                            var chk_email = $("#chkEmail").is(':checked');
+                            var chk_sms = $("#chkSMS").is(':checked');
+                            var chk_whatsapp = $("#chkWhatsapp").is(':checked');
+                            
+if(chk_email===true){chk_email='1';}
+else{chk_email='0';}
+if(chk_sms===true){chk_sms='1';}
+else{chk_sms='0';}
+if(chk_whatsapp===true){chk_whatsapp='1';}
+else{chk_whatsapp='0';}
+
+                            $.ajax({
+                                url: "<?= base_url('/settings/enablenotifications') ?>",
+                                data: {
+                                    pmemail: chk_email,
+                                    pmmobile: chk_sms,
+                                    pmwhatsapp: chk_whatsapp},
+                                dataType: "json",
+                                type: "POST",
+                                error: function (msg) {
+
+                                    if (msg.success === false)
+                                    {
+                                        $('#alerts-notifications').html("<div class='alert alert-light-danger border-0 mb-4' style='text-align:left;'><strong>" + JSON.stringify(msg.message).replace(/"/g, '') + "</strong></div>");
+                                    } else
+                                    {
+                                        $('#alerts-notifications').html("<div class='alert alert-light-success border-0 mb-4' style='text-align:left;'><strong>" + JSON.stringify(msg.message).replace(/"/g, '') + "</strong></div>");
+
+                                    }
+                                },
+                                success: function (msg) {
+                                    if (msg.success === false)
+                                    {
+                                        $('#alerts-notifications').html("<div class='alert alert-light-danger border-0 mb-4' style='text-align:left;'><strong>" + JSON.stringify(msg.message).replace(/"/g, '') + "</strong></div>");
+                                    } else
+                                    {
+                                        $('#alerts-notifications').html("<div class='alert alert-light-success border-0 mb-4' style='text-align:left;'><strong>" + JSON.stringify(msg.message).replace(/"/g, '') + "</strong></div>");
                                     }
 
                                 }

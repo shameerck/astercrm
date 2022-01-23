@@ -67,6 +67,7 @@ $routes->post('/settings/dtuserslist', 'TableData::dtUsersList');
 
 $routes->get('/settings/reminder', 'Settings::reminder');
 $routes->post('/settings/saveescalation', 'Settings::saveescalation');
+$routes->post('/settings/enablenotifications', 'Settings::enablenotifications');
 
 $routes->get('/visits', 'Home::visits');
 $routes->get('/schedule/(:alphanum)', 'Home::schedule/$1');

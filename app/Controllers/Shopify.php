@@ -199,24 +199,34 @@ class Shopify extends BaseController {
 
 //Send Email
 
+                $settingsquery = $db->query('SELECT * FROM setting ');
+                    $settings = $query->getRow();
+                
 
                 foreach ($mailarray as $benmail) {
                     
                     $query = $db->query('SELECT * FROM units where unitname like "' . $benmail['hospital'] . '"');
                     $units = $query->getRow();
                     if ($units) {
+                        
+                        if($settings && $settings->enableemail=='1')
+                        {
                         //Send Email
                         if ($units->unitinchargeemail != "") {
                             $mail_data['visiturl'] = base_url("/schedule/" . $benmail['visitid']);
                             $message = view('reminder_email_1', $mail_data);
-
+                            
                             try {
                                $this->sendmail($benmail['orderid'],$benmail['beneficiaryid'],$message, "New Dilse Order#" . $request->getJsonVar('order_number') . ", Beneficiary " . $benmail["firstname"] . " " . $benmail["lastname"], $units->unitinchargeemail);
                             } catch (\Exception $e) { {
                                     return $this->response->setJSON(array("success" => false, "message" => "Sending Email failed.", "data" => $e));
                                 }
                             }
-
+                            }
+                        }
+                        
+                        if($settings && $settings->enablesms=='1')
+                        {
                             //Send SMS
                             if ($units->unitinchargemobile != "") {
 
@@ -227,7 +237,9 @@ class Shopify extends BaseController {
                                         return $this->response->setJSON(array("success" => false, "message" => "Sending SMS message failed.", "data" => $e));
                                     }
                                 }
-
+                        }
+                        if($settings && $settings->enablewhatsapp=='1')
+                        {
                                 //Send WhatApp
                                 if ($units->unitinchargewhatsapp != "") {
 
@@ -237,7 +249,8 @@ class Shopify extends BaseController {
                                             return $this->response->setJSON(array("success" => false, "message" => "Sending WhatsApp message failed.", "data" => $e));
                                         }
                                     }
-                                }
+                        }
+                                
                             }
                         }
                     } else {

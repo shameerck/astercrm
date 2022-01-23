@@ -68,6 +68,10 @@ $query = $db->query('SELECT * FROM settings');
                     $data['pmemail']=$setting->pmemail;
                     $data['pmmobile']=$setting->pmmobile;
                     $data['pmwhatsapp']=$setting->pmwhatsapp;
+                    
+                    $data['chkEmail']=($setting->enableemail?"checked":"");
+                    $data['chkSMS']=($setting->enablesms?"checked":"");
+                    $data['chkWhatsapp']=($setting->enablewhatsapp?"checked":"");
                     }
                     else
                     {
@@ -504,6 +508,36 @@ $query = $db->query('SELECT * FROM settings');
                 return $this->response->setJSON(array("success" => false, "message" => "Escalation settings failed.", "data" => $e));
             }
             }
+
+        
+    }
+    
+    function enablenotifications() {
+        
+    $db = \Config\Database::connect();
+        $request = \Config\Services::request();
+            $builder = $db->table('settings');
+            try
+            {
+                $data['enableemail']= $request->getVar('pmemail');
+            $data['enablesms']= $request->getVar('pmmobile');
+            $data['enablewhatsapp']= $request->getVar('pmwhatsapp');
+                $builder->where('id', 1);
+        
+            $builder->update($data);
+            
+            $rslt = [
+                'success' => true,
+                'message' => "Notifications settings updated successfully."
+                    ];
+
+                return $this->response->setJSON($rslt);
+            }
+            catch (\Exception $e) 
+            {
+                return $this->response->setJSON(array("success" => false, "message" => "Notification settings failed.", "data" => $e));
+            }
+            
 
         
     }
