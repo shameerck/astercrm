@@ -200,7 +200,7 @@ class Shopify extends BaseController {
 //Send Email
 
                 $settingsquery = $db->query('SELECT * FROM settings ');
-                    $settings = $settingsquery->getRow();
+                    $notificationsettings = $settingsquery->getRow();
                 
 
                 foreach ($mailarray as $benmail) {
@@ -209,7 +209,7 @@ class Shopify extends BaseController {
                     $units = $query->getRow();
                     if ($units) {
                         
-                        if($settings && $settings->enableemail=='1')
+                        if($notificationsettings && $notificationsettings->enableemail=='1')
                         {
                         //Send Email
                         if ($units->unitinchargeemail != "") {
@@ -225,7 +225,7 @@ class Shopify extends BaseController {
                             }
                         }
                         
-                        if($settings && $settings->enablesms=='1')
+                        if($notificationsettings && $notificationsettings->enablesms=='1')
                         {
                             //Send SMS
                             if ($units->unitinchargemobile != "") {
@@ -238,7 +238,7 @@ class Shopify extends BaseController {
                                     }
                                 }
                         }
-                        if($settings && $settings->enablewhatsapp=='1')
+                        if($notificationsettings && $notificationsettings->enablewhatsapp=='1')
                         {
                                 //Send WhatApp
                                 if ($units->unitinchargewhatsapp != "") {
