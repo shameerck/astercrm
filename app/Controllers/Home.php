@@ -9,7 +9,7 @@ class Home extends BaseController
         date_default_timezone_set('Asia/Dubai');
         $session = session();
         
-        if($session->get("logged_in")==true && $session->get("location_id")!=null) {
+        if($session->get("logged_in")==null || $session->get("logged_in")==false) {
             header("Location:".base_url("/login"));exit;
         }
         
