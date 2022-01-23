@@ -141,7 +141,7 @@ $data = array();
                 ));
             
             
-            $query = $db->query('SELECT count(*) as visits FROM visits where status=0');
+            $query = $db->query("SELECT count(*) as visits FROM visits join beneficiaries on beneficiaries.id=visits.beneficiaryid and beneficiaries.hospital like '". $_SESSION['locationname'] ."' where visits.status=0");
             $row   = $query->getRow();
 
             
@@ -149,7 +149,7 @@ $data = array();
                     'visits' => $row->visits
                 ));
             //$query = $db->query('SELECT sum(order_json->>"$.total_price") as total FROM orders');
-            $query = $db->query('SELECT count(*) as visited FROM visits where status=1');
+            $query = $db->query("SELECT count(*) as visited FROM visits join beneficiaries on beneficiaries.id=visits.beneficiaryid and beneficiaries.hospital like '". $_SESSION['locationname'] ."' where visits.status=1");
             $row   = $query->getRow();
             
             array_push($data, array(
