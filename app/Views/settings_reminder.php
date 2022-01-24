@@ -125,6 +125,9 @@
                         </div>
                     </div>
                 </div>
+                
+                <button id="btnImport" name="btnImport" onclick="importbeneficiaries();" class="btn btn-primary">Import Beneficiaries</button>
+                
 
 
             </div>
@@ -237,6 +240,40 @@ else{chk_whatsapp='0';}
                                     pmemail: chk_email,
                                     pmmobile: chk_sms,
                                     pmwhatsapp: chk_whatsapp},
+                                dataType: "json",
+                                type: "POST",
+                                error: function (msg) {
+
+                                    if (msg.success === false)
+                                    {
+                                        $('#alerts-notifications').html("<div class='alert alert-light-danger border-0 mb-4' style='text-align:left;'><strong>" + JSON.stringify(msg.message).replace(/"/g, '') + "</strong></div>");
+                                    } else
+                                    {
+                                        $('#alerts-notifications').html("<div class='alert alert-light-success border-0 mb-4' style='text-align:left;'><strong>" + JSON.stringify(msg.message).replace(/"/g, '') + "</strong></div>");
+
+                                    }
+                                },
+                                success: function (msg) {
+                                    if (msg.success === false)
+                                    {
+                                        $('#alerts-notifications').html("<div class='alert alert-light-danger border-0 mb-4' style='text-align:left;'><strong>" + JSON.stringify(msg.message).replace(/"/g, '') + "</strong></div>");
+                                    } else
+                                    {
+                                        $('#alerts-notifications').html("<div class='alert alert-light-success border-0 mb-4' style='text-align:left;'><strong>" + JSON.stringify(msg.message).replace(/"/g, '') + "</strong></div>");
+                                    }
+
+                                }
+                            });
+                        }
+                        
+                        
+                        function importbeneficiaries()
+                        {
+                            
+
+                            $.ajax({
+                                url: "<?= base_url('/settings/importbenefiaries') ?>",
+                                data: {},
                                 dataType: "json",
                                 type: "POST",
                                 error: function (msg) {

@@ -69,6 +69,8 @@ $routes->get('/settings/reminder', 'Settings::reminder');
 $routes->post('/settings/saveescalation', 'Settings::saveescalation');
 $routes->post('/settings/enablenotifications', 'Settings::enablenotifications');
 
+$routes->post('/settings/importbenefiaries', 'Settings::importbenefiaries');
+
 $routes->get('/visits', 'Home::visits');
 $routes->get('/schedule/(:alphanum)', 'Home::schedule/$1');
 $routes->post('/schedulevisit', 'Schedule::savevisit');

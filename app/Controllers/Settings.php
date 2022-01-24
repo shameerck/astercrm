@@ -9,12 +9,11 @@ class Settings extends BaseController
         date_default_timezone_set('Asia/Dubai');
         $session = session();
         
-        if($session->get("logged_in")==true && $session->get("location_id")!=null) {
+        if($session->get("logged_in")==null || $session->get("logged_in")==false) {
             header("Location:".base_url("/login"));exit;
         }
         
     }
-    
     
     
      public function settings()
@@ -541,5 +540,145 @@ $query = $db->query('SELECT * FROM settings');
 
         
     }
+    
+    
+    public function importbenefiaries()
+	{
+        
+        
+        $db = \Config\Database::connect();
+        
+$query = $db->query('SELECT * FROM orders ');
+                    $orders = $query->getResultArray();
+                    
+                    foreach($orders as $order)
+                    {
+                    
+        $order_id = $order['order_id'];
+
+                $shopify_json = json_decode($order['order_json']);
+                
+                $atts = $shopify_json->note_attributes;
+                
+//                $ben_count=0;
+//                foreach ($atts as $attvalue) {
+//                    if ($this->endsWith($attvalue->name, '-firstname'))
+//                    {
+//                        $ben_count++;
+//                    }
+//                    
+//                }
+                
+                
+                $ben_count = $shopify_json->line_items[0]->quantity;
+                $benarray = array();
+                for ($i = 1; $i <= $ben_count; $i++) {
+                    $benarray[$i]['id'] = uniqid();
+                    $benarray[$i]['orderid'] = $order_id;
+                }
+
+                for ($i = 1; $i <= $ben_count; $i++) {
+                    foreach ($atts as $attvalue) {
+
+                        if ($this->endsWith($attvalue->name, '-' . $i . '-hospital')) {
+                            $benarray[$i]['hospital'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-firstname')) {
+                            $benarray[$i]['firstname'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-lastname')) {
+                            $benarray[$i]['lastname'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-gender')) {
+                            $benarray[$i]['gender'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-age')) {
+                            $benarray[$i]['age'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-email')) {
+                            $benarray[$i]['email'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-phone')) {
+                            $benarray[$i]['phone'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-address')) {
+                            $benarray[$i]['address'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-district')) {
+                            $benarray[$i]['district'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-pin')) {
+                            $benarray[$i]['pin'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-landmark')) {
+                            $benarray[$i]['landmark'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-emergency')) {
+                            $benarray[$i]['emergency'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-hospital')) {
+                            $benarray[$i]['hospital'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-medicalhistory')) {
+                            $benarray[$i]['medicalhistory'] = $attvalue->value;
+                        }
+                    }
+                }
+                
+                foreach ($benarray as $ben) {
+
+                    
+                    $db->table('beneficiaries')->insert($ben);
+
+                    $visitid = uniqid();
+                    $visitdate = strtotime($shopify_json->closed_at);
+                    $new_time= date('Y-m-d H:i:s',$visitdate);
+                    
+                    $dataVisit1 = [
+                        'id' => $visitid,
+                        'orderid' => $order_id,
+                        'visittitle' => "1st Visit",
+                        'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+1 days')),
+                        'beneficiaryid' => $ben['id'],
+                        'status' => 0
+                    ];
+
+                    $db->table('visits')->insert($dataVisit1);
+                    
+                    $dataVisit2 = [
+                        'id' => uniqid(),
+                        'orderid' => $order_id,
+                        'visittitle' => "2nd Visit",
+                        'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+3 months')),
+                        'beneficiaryid' => $ben['id'],
+                        'status' => 0
+                    ];
+
+                    $db->table('visits')->insert($dataVisit2);
+                    
+                    $dataVisit3 = [
+                        'id' => uniqid(),
+                        'orderid' => $order_id,
+                        'visittitle' => "3rd Visit",
+                        'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+6 months')),
+                        'beneficiaryid' => $ben['id'],
+                        'status' => 0
+                    ];
+
+                    $db->table('visits')->insert($dataVisit3);
+                    
+                    $dataVisit4 = [
+                        'id' => uniqid(),
+                        'orderid' => $order_id,
+                        'visittitle' => "4th Visit",
+                        'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+9 months')),
+                        'beneficiaryid' => $ben['id'],
+                        'status' => 0
+                    ];
+
+                    $db->table('visits')->insert($dataVisit4);
+                    
+                }
+                    }
+    }
+    
+    function startsWith( $haystack, $needle ) {
+     $length = strlen( $needle );
+     return substr( $haystack, 0, $length ) === $needle;
+}
+function endsWith( $haystack, $needle ) {
+    $length = strlen( $needle );
+    if( !$length ) {
+        return true;
+    }
+    return substr( $haystack, -$length ) === $needle;
+}
         
 }
