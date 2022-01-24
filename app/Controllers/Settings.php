@@ -135,7 +135,7 @@ $query = $db->query('SELECT * FROM settings');
                 ],
             'unitinchargeemail'  => [
             'label'  => 'Unit In Charge Email Address',
-            'rules'  => 'required|min_length[5]|max_length[255]|valid_email',
+            'rules'  => 'required|min_length[5]|max_length[255]',
              'errors' => [
                 'required' => '{field} is required',
                  'min_length' => '{field} is too short.',
@@ -164,7 +164,7 @@ $query = $db->query('SELECT * FROM settings');
             ],],
             'unitmanageremail'  => [
             'label'  => 'Unit Manager Email Address',
-            'rules'  => 'required|min_length[5]|max_length[255]|valid_email',
+            'rules'  => 'required|min_length[5]|max_length[255]',
             'errors' => [
                 'required' => '{field} is required',
                 'min_length' => '{field} is too short.',

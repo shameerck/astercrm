@@ -269,6 +269,7 @@ class Shopify extends BaseController {
 
                 curl_setopt_array($curl, array(
                     CURLOPT_URL => getenv('api.url').'/api/v1/gmail/sendemail',
+                    //CURLOPT_URL => getenv('api.url').'/api/v1/gmail/sendcalendar',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -435,6 +436,8 @@ function endsWith( $haystack, $needle ) {
     }
     return substr( $haystack, -$length ) === $needle;
 }
+
+
 
         }
         
