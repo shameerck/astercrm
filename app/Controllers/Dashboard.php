@@ -167,7 +167,7 @@ $data = array();
             
             $request = \Config\Services::request();
             $days=$request->getVar('days');
-            $query = $db->query("SELECT * from visits join beneficiaries on beneficiaries.id=visits.beneficiaryid and beneficiaries.hospital like '". $_SESSION['locationname'] ."' where (visits.visitingdate is null and visits.expecteddate<='".Date('Y-m-d', strtotime('+'.$days.' days'))."') or (visits.visitingdate<='".Date('Y-m-d', strtotime('+8 days'))."') ;");
+            $query = $db->query("SELECT visits.id as visitid, visits.*, beneficiaries.* from visits join beneficiaries on beneficiaries.id=visits.beneficiaryid and beneficiaries.hospital like '". $_SESSION['locationname'] ."' where visits.status=0 and ((visits.visitingdate is null and visits.expecteddate<='".Date('Y-m-d', strtotime('+'.$days.' days'))."') or (visits.visitingdate<='".Date('Y-m-d', strtotime('+8 days'))."')) ;");
             $visits   = $query->getResultArray();
 
             $strvisits="";
@@ -181,12 +181,16 @@ $data = array();
                                         <div class="t-company-name">
                                             <div class="t-name">
                                                 <h4>'.$visit['firstname'].' '.$visit['lastname'].'</h4>
-                                                <p class="meta-date">'.$visit['expecteddate'].'</p>
+                                                <p class="meta-date">'.($visit['visitingdate']?$visit['visitingdate']:$visit['expecteddate']).'</p>
                                             </div>
                                         </div>
-                                        <div class="t-rate rate-inc">
-                                            <p><span>'.($visit['visitingdate']?"Scheduled":"Expected").'</span></p>
+                                        <div class="t-rate">
+                                            <p><span style="color:#009688;">'.$visit['visittitle'].'</span></p>
+                                                <p><a href="'.base_url('schedule/'.$visit['visitid']).'">'.($visit['visitingdate']?'<span class="badge badge-success">Scheduled':'<span class="badge badge-danger">Expected').'</span></a></p>
                                         </div>
+                                        
+                                            
+                                        
                                     </div>
                                 </div>';
                 }
