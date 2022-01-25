@@ -622,7 +622,7 @@ $query = $db->query('SELECT * FROM orders ');
                     
                     $dataVisit1 = [
                         'id' => $visitid,
-                        'orderid' => $order_id,
+                        'orderid' => $shopify_json->order_number,
                         'visittitle' => "1st Visit",
                         'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+1 days')),
                         'beneficiaryid' => $ben['id'],
@@ -633,7 +633,7 @@ $query = $db->query('SELECT * FROM orders ');
                     
                     $dataVisit2 = [
                         'id' => uniqid(),
-                        'orderid' => $order_id,
+                        'orderid' => $shopify_json->order_number,
                         'visittitle' => "2nd Visit",
                         'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+3 months')),
                         'beneficiaryid' => $ben['id'],
@@ -644,7 +644,7 @@ $query = $db->query('SELECT * FROM orders ');
                     
                     $dataVisit3 = [
                         'id' => uniqid(),
-                        'orderid' => $order_id,
+                        'orderid' => $shopify_json->order_number,
                         'visittitle' => "3rd Visit",
                         'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+6 months')),
                         'beneficiaryid' => $ben['id'],
@@ -655,7 +655,7 @@ $query = $db->query('SELECT * FROM orders ');
                     
                     $dataVisit4 = [
                         'id' => uniqid(),
-                        'orderid' => $order_id,
+                        'orderid' => $shopify_json->order_number,
                         'visittitle' => "4th Visit",
                         'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+9 months')),
                         'beneficiaryid' => $ben['id'],
