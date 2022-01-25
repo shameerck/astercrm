@@ -65,8 +65,11 @@
                                 <label for="hEmail" class="col-xl-2">Visiting Date</label>
                                 <div class="col-xl-4">
                                     <input type="hidden" id="visitid" value="<?= $visitid ?>">                                    
-<input id="dateTimeFlatpickr" class="form-control flatpickr flatpickr-input flatpickr-mobile active" step="any" tabindex="1" type="datetime-local" placeholder="Select Date.." value="<?= $visitingdate ?>"> 
 
+    <input class="form-control"  type="datetime-local" id="dateTimeFlatpickr"
+       name="dateTimeFlatpickr" value="<?= $visitingdate ?>" >
+    
+    
                                     <div class="invalid-feedback" id="visitdate-invalid">
                                     Select a valid date
                                 </div> 

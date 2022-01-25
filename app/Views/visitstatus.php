@@ -76,8 +76,9 @@
                                 <label for="hEmail" class="col-xl-2">Visited Date</label>
                                 <div class="col-xl-4">
                                     <input type="hidden" id="visitid" value="<?= $visitid ?>">                                    
-<input id="dateTimeFlatpickr" class="form-control flatpickr flatpickr-input flatpickr-mobile active" step="any" tabindex="1" type="datetime-local" placeholder="Select Date.." value="<?= $visitingdate ?>"> 
 
+ <input class="form-control"  type="datetime-local" id="dateTimeFlatpickr"
+       name="dateTimeFlatpickr" value="<?= $visiteddate ?>" >
                                   <div class="invalid-feedback" id="visitdate-invalid">
                                     Select a valid date
                                 </div>  
@@ -90,9 +91,9 @@
                                 <div class="col-xl-4">
 <select id="visitstatus" class="form-control">
     <option>Select</option>
-    <option>Visited</option>
-    <option>Postponed</option>
-    <option>Cancelled</option>
+    <option value="1" <?php if($visitedstatus==1) echo "selected"; ?> >Visited</option>
+    <option value="2" <?php if($visitedstatus==2) echo "selected"; ?>>Postponed</option>
+    <option value="3" <?php if($visitedstatus==3) echo "selected"; ?>>Cancelled</option>
 </select>
                                     <div class="invalid-feedback" id="visitstatus-invalid">
                                     Select visit status

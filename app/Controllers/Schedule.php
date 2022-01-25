@@ -31,7 +31,7 @@ class Schedule extends BaseController
             ],
                 ],
             'visitdate'  => [
-            'label'  => 'Visit Date',
+            'label'  => 'Visiting Date',
             'rules'  => 'required',
             'errors' => [
                 'required' => '{field} is required'
