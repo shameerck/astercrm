@@ -167,7 +167,7 @@ $data = array();
             
             $request = \Config\Services::request();
             $days=$request->getVar('days');
-            $query = $db->query("SELECT visits.id as visitid, visits.*, beneficiaries.* from visits join beneficiaries on beneficiaries.id=visits.beneficiaryid and beneficiaries.hospital like '". $_SESSION['locationname'] ."' where visits.status=0 and ((visits.visitingdate is null and visits.expecteddate<='".Date('Y-m-d', strtotime('+'.$days.' days'))."') or (visits.visitingdate<='".Date('Y-m-d', strtotime('+8 days'))."')) ;");
+            $query = $db->query("SELECT visits.id as visitid, visits.*, beneficiaries.* from visits join beneficiaries on beneficiaries.id=visits.beneficiaryid and beneficiaries.hospital like '". $_SESSION['locationname'] ."' where visits.status=0 and ((visits.visitingdate is null and visits.expecteddate<='".Date('Y-m-d', strtotime('+'.$days.' days'))."') or (visits.visitingdate<='".Date('Y-m-d', strtotime('+8 days'))."')) order by visits.expecteddate asc, visits.visitingdate asc ;");
             $visits   = $query->getResultArray();
 
             $strvisits="";
