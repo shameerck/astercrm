@@ -106,7 +106,7 @@ class TableDataModel extends Model {
     public function dtBeneficiaries(){
     $db = \Config\Database::connect();
     $builder = $db->table("beneficiaries");
-    $builder->select('concat(beneficiaries.firstname," ",beneficiaries.lastname) as fullname, age, gender, replace(address, ",", "<br>") as address, phone, hospital');
+    $builder->select('orderid, concat(beneficiaries.firstname," ",beneficiaries.lastname) as fullname, age, gender, replace(address, ",", "<br>") as address, phone, hospital');
     if($_SESSION["locationid"]!=null)
     {
         $builder->where('beneficiaries.hospital', $_SESSION["locationname"]);

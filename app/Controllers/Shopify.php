@@ -93,7 +93,7 @@ class Shopify extends BaseController {
                 $db->table('orders')->insert($data);
 
                 //Insert beneficiaries
-                $order_id = $shopify_json->id;
+                
 
                 $atts = $shopify_json->note_attributes;
 
@@ -101,7 +101,7 @@ class Shopify extends BaseController {
                 $benarray = array();
                 for ($i = 1; $i <= $ben_count; $i++) {
                     $benarray[$i]['id'] = uniqid();
-                    $benarray[$i]['orderid'] = $order_id;
+                    $benarray[$i]['orderid'] = $shopify_json->order_number;;
                 }
 
 

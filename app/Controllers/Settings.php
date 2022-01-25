@@ -554,7 +554,6 @@ $query = $db->query('SELECT * FROM orders ');
                     foreach($orders as $order)
                     {
                     
-        $order_id = $order['order_id'];
 
                 $shopify_json = json_decode($order['order_json']);
                 
@@ -574,7 +573,7 @@ $query = $db->query('SELECT * FROM orders ');
                 $benarray = array();
                 for ($i = 1; $i <= $ben_count; $i++) {
                     $benarray[$i]['id'] = uniqid();
-                    $benarray[$i]['orderid'] = $order_id;
+                    $benarray[$i]['orderid'] = $shopify_json->order_number;
                 }
 
                 for ($i = 1; $i <= $ben_count; $i++) {

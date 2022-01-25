@@ -77,7 +77,7 @@ class TableData extends BaseController
     $table->setTable($tabledatamodel->dtBeneficiaries())
             ->setDefaultOrder("fullname","asc")
             ->setSearch(["fullname","address"])
-          ->setOutput(["fullname","age", "gender", "phone", "address", "hospital"]);
+          ->setOutput(["orderid","fullname","age", "gender", "phone", "address", "hospital"]);
     return $table->getDatatable();
             
     }

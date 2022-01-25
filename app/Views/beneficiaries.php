@@ -44,6 +44,7 @@
                                 <table id="dtBeneficiariesList"  class="table" style="width:100%">
                                     <thead>
                                         <tr>
+                                            <th><div class="th-content ">Order ID</div></th>
                                             <th><div class="th-content ">Full Name</div></th>
                                             <th><div class="th-content">Age</div></th>
                                             <th><div class="th-content">Gender</div></th>
@@ -56,6 +57,7 @@
 
                                     <tfoot>
                                         <tr>
+                                            <th><div class="th-content ">Order ID</div></th>
                                             <th><div class="th-content ">Full Name</div></th>
                                             <th><div class="th-content">Age</div></th>
                                             <th><div class="th-content">Gender</div></th>
@@ -98,7 +100,7 @@
             "aoColumnDefs": [{
                     "bSortable": false,
 "className": "text-left",
-                    "aTargets": [0, 1, 2, 3, 4, 5]
+                    "aTargets": [0, 1, 2, 3, 4, 5, 6]
                 }
             ],
             "searching": false,

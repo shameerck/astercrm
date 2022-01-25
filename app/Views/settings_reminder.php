@@ -126,7 +126,7 @@
                     </div>
                 </div>
                 
-                <!--<button id="btnImport" name="btnImport" onclick="importbeneficiaries();" class="btn btn-primary">Import Beneficiaries</button>-->
+                <button id="btnImport" name="btnImport" onclick="importbeneficiaries();" class="btn btn-primary">Import Beneficiaries</button>
                 
 
 
