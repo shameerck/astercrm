@@ -50,7 +50,7 @@
                             <div class="form-group row">
                                 <label for="hEmail" class="col-xl-2">Phone</label>
                                 <div class="col-xl-4">
-                                    <strong><?= $phone?></strong>
+                                    <a href="tel:<?= $phone ?>"><strong><?= $phone ?></strong><a>
                                 </div>
                             </div>
                             
