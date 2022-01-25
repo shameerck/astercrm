@@ -75,7 +75,7 @@ class TableData extends BaseController
         $tabledatamodel = new TableDataModel();
     $table = new TablesIgniter();
     $table->setTable($tabledatamodel->dtBeneficiaries())
-            ->setDefaultOrder("fullname","asc")
+            ->setDefaultOrder("orderid","desc")
             ->setSearch(["fullname","address"])
           ->setOutput(["orderid","fullname","age", "gender", "phone", "address", "hospital"]);
     return $table->getDatatable();

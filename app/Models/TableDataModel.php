@@ -111,7 +111,7 @@ class TableDataModel extends Model {
     {
         $builder->where('beneficiaries.hospital', $_SESSION["locationname"]);
     }
-    $builder->orderby('fullname', 'asc');
+    $builder->orderby('orderid', 'desc');
     return $builder;
     }
     
