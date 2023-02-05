@@ -301,6 +301,7 @@ class Shopify extends BaseController {
 
             if ($verified) {
 
+                $this->load->database('naseera');
                 $db = \Config\Database::connect('naseera');
 
                 $data = [
