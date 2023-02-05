@@ -8,7 +8,7 @@ class Shopify extends BaseController {
 
     function verify_webhook($data, $hmac_header) {
         $calculated_hmac = base64_encode(hash_hmac('sha256', $data, getenv('SHOPIFY_APP_SECRET'), true));
-        echo $calculated_hmac;
+        //echo $calculated_hmac;
         return hash_equals($hmac_header, $calculated_hmac);
     }
 
