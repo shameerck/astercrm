@@ -301,7 +301,7 @@ class Shopify extends BaseController {
 
             if ($verified) {
 
-                $db = \Config\Database::connect();
+                $db = \Config\Database::connect('naseera');
 
                 $data = [
                     'order_id' => $request->getJsonVar('order_number'),

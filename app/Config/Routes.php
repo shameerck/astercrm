@@ -88,6 +88,7 @@ $routes->post('dashboard/upcomingvisits', 'Dashboard::upcomingvisits');
 
 $routes->get('shopify/customercreated', 'Shopify::customercreated');
 $routes->get('shopify/ordercreated', 'Shopify::ordercreated');
+$routes->get('shopify/naseeraordercreated', 'Shopify::naseeraordercreated');
 
 
 
