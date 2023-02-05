@@ -269,7 +269,227 @@ class Shopify extends BaseController {
         }
         exit;
     }
+    
+    
+    public function naseeraordercreated() {
+        
+//        $data = file_get_contents('php://input');
+//        echo base64_encode(hash_hmac('sha256', $data, getenv('SHOPIFY_APP_SECRET'), true));exit;
 
+        $request = \Config\Services::request();
+
+        //Read JSON Data
+        $shopify_json = $request->getJSON();
+
+        //log_message('error', $shopify_json);
+
+        $hmac_header = $request->getHeaderLine('X-Shopify-Hmac-Sha256');
+
+        /*
+         * ob_flush();
+          ob_start();
+          var_dump($request);
+          file_put_contents("dump.txt", ob_get_flush());
+          exit;
+         * 
+         */
+
+        if ($hmac_header != null) {
+
+            $data = file_get_contents('php://input');
+            $verified = $this->verify_webhook($data, $hmac_header);
+
+            if ($verified) {
+
+                $db = \Config\Database::connect();
+
+                $data = [
+                    'order_id' => $request->getJsonVar('order_number'),
+                    'order_json' => json_encode($shopify_json)
+                ];
+
+                $db->table('orders')->insert($data);
+
+                //Insert beneficiaries
+                
+
+                $atts = $shopify_json->note_attributes;
+
+                $ben_count = $shopify_json->line_items[0]->quantity;
+                $benarray = array();
+                for ($i = 1; $i <= $ben_count; $i++) {
+                    $benarray[$i]['id'] = uniqid();
+                    $benarray[$i]['orderid'] = $shopify_json->order_number;;
+                }
+
+
+//Iterate beneficiaries
+                for ($i = 1; $i <= $ben_count; $i++) {
+                    foreach ($atts as $attvalue) {
+
+                        if ($this->endsWith($attvalue->name, '-' . $i . '-hospital')) {
+                            $benarray[$i]['hospital'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-firstname')) {
+                            $benarray[$i]['firstname'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-lastname')) {
+                            $benarray[$i]['lastname'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-gender')) {
+                            $benarray[$i]['gender'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-age')) {
+                            $benarray[$i]['age'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-email')) {
+                            $benarray[$i]['email'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-phone')) {
+                            $benarray[$i]['phone'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-address')) {
+                            $benarray[$i]['address'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-district')) {
+                            $benarray[$i]['district'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-pin')) {
+                            $benarray[$i]['pin'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-landmark')) {
+                            $benarray[$i]['landmark'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-emergency')) {
+                            $benarray[$i]['emergency'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-hospital')) {
+                            $benarray[$i]['hospital'] = $attvalue->value;
+                        } else if ($this->endsWith($attvalue->name, '-' . $i . '-medicalhistory')) {
+                            $benarray[$i]['medicalhistory'] = $attvalue->value;
+                        }
+                    }
+                }
+
+
+                $mailarray = array();
+                $mailcount = 0;
+                foreach ($benarray as $ben) {
+
+
+                    $db->table('beneficiaries')->insert($ben);
+
+                    $visitid = uniqid();
+                    
+                    $visitdate = strtotime($shopify_json->closed_at);
+                    $new_time= date('Y-m-d H:i:s',$visitdate);
+
+                    $dataVisit1 = [
+                        'id' => $visitid,
+                        'orderid' => $request->getJsonVar('order_number'),
+                        'visittitle' => "1st Visit",
+                        'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+1 days')),
+                        'beneficiaryid' => $ben['id'],
+                        'status' => 0
+                    ];
+
+                    $db->table('visits')->insert($dataVisit1);
+
+                    $dataVisit2 = [
+                        'id' => uniqid(),
+                        'orderid' => $request->getJsonVar('order_number'),
+                        'visittitle' => "2nd Visit",
+                        'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+3 months')),
+                        'beneficiaryid' => $ben['id'],
+                        'status' => 0
+                    ];
+
+                    $db->table('visits')->insert($dataVisit2);
+
+                    $dataVisit3 = [
+                        'id' => uniqid(),
+                        'orderid' => $request->getJsonVar('order_number'),
+                        'visittitle' => "3rd Visit",
+                        'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+6 months')),
+                        'beneficiaryid' => $ben['id'],
+                        'status' => 0
+                    ];
+
+                    $db->table('visits')->insert($dataVisit3);
+
+                    $dataVisit4 = [
+                        'id' => uniqid(),
+                        'orderid' => $request->getJsonVar('order_number'),
+                        'visittitle' => "4th Visit",
+                        'expecteddate' => date('Y-m-d H:i:s',strtotime($new_time.'+9 months')),
+                        'beneficiaryid' => $ben['id'],
+                        'status' => 0
+                    ];
+
+                    $db->table('visits')->insert($dataVisit4);
+
+                    if($ben!=null && isset($ben['hospital']))
+                    {
+                    $mailarray[$mailcount]['orderid'] = $request->getJsonVar('order_number');
+                    $mailarray[$mailcount]['beneficiaryid'] = $ben['id'];
+                    $mailarray[$mailcount]['visitid'] = $visitid;
+                    $mailarray[$mailcount]['hospital'] = $ben['hospital'];
+                    $mailarray[$mailcount]['firstname'] = ($ben['firstname']?$ben['firstname']:"");
+                    $mailarray[$mailcount]['lastname'] = ($ben['lastname']?$ben['lastname']:"");
+                    $mailcount++;
+                    }
+                }
+
+//Send Email
+
+                $settingsquery = $db->query('SELECT * FROM settings ');
+                $notificationsettings = $settingsquery->getRow();
+
+                foreach ($mailarray as $benmail) {
+
+                    $query = $db->query('SELECT * FROM units where unitname like "' . $benmail['hospital'] . '"');
+                    $units = $query->getRow();
+                    if ($units) {
+
+                        if ($notificationsettings && $notificationsettings->enableemail == '1') {
+                            //Send Email
+                            if ($units->unitinchargeemail != "") {
+                                $mail_data['visiturl'] = base_url("/schedule/" . $benmail['visitid']);
+                                $message = view('reminder_email_1', $mail_data);
+
+                                try {
+                                    $this->sendmail($benmail['orderid'], $benmail['beneficiaryid'], $message, "New Dilse Order#" . $request->getJsonVar('order_number') . ", Beneficiary " . $benmail["firstname"] . " " . $benmail["lastname"], $units->unitinchargeemail);
+                                } catch (\Exception $e) { {
+                                        return $this->response->setJSON(array("success" => false, "message" => "Sending Email failed.", "data" => $e));
+                                    }
+                                }
+                            }
+                        }
+
+                        if ($notificationsettings && $notificationsettings->enablesms == '1') {
+                            //Send SMS
+                            if ($units->unitinchargemobile != "") {
+
+
+                                try {
+                                    $this->sendsms($benmail['orderid'], $benmail['beneficiaryid'], "New Order " . $request->getJsonVar('order_number') . ", Beneficiary " . $benmail["firstname"] . " " . $benmail["lastname"], $units->unitinchargemobile);
+                                } catch (\Exception $e) {
+                                    return $this->response->setJSON(array("success" => false, "message" => "Sending SMS message failed.", "data" => $e));
+                                }
+                            }
+                        }
+                        if ($notificationsettings && $notificationsettings->enablewhatsapp == '1') {
+                            //Send WhatApp
+                            if ($units->unitinchargewhatsapp != "") {
+
+                                try {
+                                    $this->sendwhatsapp($benmail['orderid'], $benmail['beneficiaryid'], "You have a new order.\nYou can find the order information below.\nhttps://asterdisle.com/visit/" . $request->getJsonVar('order_number'), $units->unitinchargewhatsapp);
+                                } catch (\Exception $e) {
+                                    return $this->response->setJSON(array("success" => false, "message" => "Sending WhatsApp message failed.", "data" => $e));
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                echo "Not verified";
+            }
+        } else {
+            log_message('error', 'Auth failed.');
+        }
+        exit;
+    }
+
+    
+    
     function sendmail($orderid, $beneficiaryid, $message, $subject, $tomail) {
 
 
